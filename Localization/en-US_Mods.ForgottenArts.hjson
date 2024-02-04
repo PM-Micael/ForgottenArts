@@ -32,4 +32,9 @@ Buffs: {
 		Description: Mods.ForgottenArts.Buffs.ParryStreak.Description
 		DisplayName: Parry Streak
 	}
+
+	ParryStreakDuration: {
+		DisplayName: Parry Streak Duration
+		Description: Mods.ForgottenArts.Buffs.ParryStreakDuration.Description
+	}
 }

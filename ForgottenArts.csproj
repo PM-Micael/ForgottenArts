@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Buffs\AdvancedBuffs\ParryStreak.png" />
+    <None Remove="Buffs\AdvancedBuffs\ParryStreakDuration.png" />
     <None Remove="Buffs\BaseBuffs\BlockStance.png" />
     <None Remove="Buffs\BaseBuffs\ParryStance.png" />
     <None Remove="Buffs\BaseBuffs\ShieldCooldown.png" />

@@ -8,13 +8,12 @@ using Terraria.ModLoader;
 
 namespace ForgottenArts.Buffs.AdvancedBuffs
 {
-    public class ParryStreak
+    public class ParryStreakDuration : ModBuff
     {
-        public int count = 0;
-
-        public void ResetStreak()
+        public override void Update(Player player, ref int buffIndex)
         {
-            count = 0;
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
+            player.statDefense += 5;
         }
-    }
+    } 
 }

@@ -20,7 +20,7 @@ namespace ForgottenArts.Items.Shields
 
         public override List<ShieldBuffs> StatusEffects()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

@@ -1,3 +1,4 @@
+using ForgottenArts.Buffs.BaseBuffs;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -33,7 +34,7 @@ namespace ForgottenArts.Items.Shields
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
 
-            if (playerClass.shieldOnCooldown)
+            if (player.HasBuff(ModContent.BuffType<ShieldCooldown>()))
             {
                 return false;
             }
@@ -42,14 +43,12 @@ namespace ForgottenArts.Items.Shields
                 Item.useAnimation = 1;
                 Item.useTime = 1;
                 player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.BlockStance>(), 1);
-                player.AddBuff(BuffID.Ironskin, 60);
             }
             else if(Main.mouseRight && !playerClass.inBlockStance)//Parry
             {
                 Item.useAnimation = 10;
                 Item.useTime = 10;
                 player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 20);
-                player.AddBuff(BuffID.Regeneration, 60);
             }
 
             return true;
