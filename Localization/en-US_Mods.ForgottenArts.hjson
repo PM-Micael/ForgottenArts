@@ -1,0 +1,35 @@
+# This file will automatically update with entries for new content after a build and reload
+
+Items: {
+	Shield: {
+		DisplayName: Shield
+		Tooltip: ""
+	}
+
+	WoodenShield: {
+		Tooltip: ""
+		DisplayName: Wooden Shield
+	}
+}
+
+Buffs: {
+	ShieldCooldown: {
+		Description: Mods.ForgottenArts.Buffs.ShieldCooldown.Description
+		DisplayName: Shield Cooldown
+	}
+
+	ParryStance: {
+		Description: Mods.ForgottenArts.Buffs.ParryStance.Description
+		DisplayName: Parry Stance
+	}
+
+	BlockStance: {
+		Description: Mods.ForgottenArts.Buffs.BlockStance.Description
+		DisplayName: Block Stance
+	}
+
+	ParryStreak: {
+		Description: Mods.ForgottenArts.Buffs.ParryStreak.Description
+		DisplayName: Parry Streak
+	}
+}
