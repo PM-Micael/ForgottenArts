@@ -13,7 +13,6 @@ namespace ForgottenArts.Buffs.BaseBuffs
             Main.debuff[Type] = false;
             Main.buffNoTimeDisplay[Type] = true;
         }
-
         
         public override void Update(Player player, ref int buffIndex)
         {
@@ -29,11 +28,16 @@ namespace ForgottenArts.Buffs.BaseBuffs
                 {
                     if (playerClass.IsFacingNPC(npc))
                     {
-                        if(buffs.Count > 0 && buffs != null)//Applies status effects
+                        if (buffs != null)
                         {
-                            foreach(var buff in buffs)
+                            player.AddBuff(BuffID.Ironskin, 120);
+                            if (buffs.Count > 0)//Applies status effects
                             {
-                                npc.AddBuff(buff.buffID, buff.duration);
+                                player.AddBuff(BuffID.Regeneration, 120);
+                                foreach (var buff in buffs)
+                                {
+                                    npc.AddBuff(buff.buffID, buff.duration);
+                                }
                             }
                         }
 

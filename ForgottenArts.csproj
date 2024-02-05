@@ -13,6 +13,8 @@
     <None Remove="Buffs\BaseBuffs\BlockStance.png" />
     <None Remove="Buffs\BaseBuffs\ParryStance.png" />
     <None Remove="Buffs\BaseBuffs\ShieldCooldown.png" />
+    <None Remove="Items\Projectiles\TrackingFireball.png" />
+    <None Remove="Items\Shields\MoltenShield.png" />
     <None Remove="Items\Shields\PoisonIvy.png" />
   </ItemGroup>
   <ItemGroup>
@@ -20,6 +22,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Accessories\" />
-    <Folder Include="Items\Armor\" />
   </ItemGroup>
 </Project>

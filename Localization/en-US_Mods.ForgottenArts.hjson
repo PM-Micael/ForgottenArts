@@ -15,6 +15,26 @@ Items: {
 		DisplayName: Poison Ivy
 		Tooltip: ""
 	}
+
+	MoltenShield: {
+		DisplayName: Molten Shield
+		Tooltip: ""
+	}
+
+	MoltenChestplate: {
+		DisplayName: Molten Chestplate
+		Tooltip: ""
+	}
+
+	MoltenHelm: {
+		DisplayName: Molten Helm
+		Tooltip: ""
+	}
+
+	MoltenLeggings: {
+		DisplayName: Molten Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -48,3 +68,5 @@ Buffs: {
 		Description: Mods.ForgottenArts.Buffs.ParryStreakDduration.Description
 	}
 }
+
+Projectiles.TrackingFireball.DisplayName: Tracking Fireball

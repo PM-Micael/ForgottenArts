@@ -1,5 +1,6 @@
 using ForgottenArts.Buffs.BaseBuffs;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -17,15 +18,14 @@ namespace ForgottenArts.Items.Shields
             base.SetDefaults();
         }
 
-        public override float Multipliers()
+        public override int Multipliers(Player player)
         {
-            return 1f;
+            float multiplier = 1f;
+            int playerDefense = player.statDefense;
+            int result = (int)Math.Round(playerDefense * multiplier);
+            return result;
         }
 
-        public override void ParryMeleeSkill()
-        {
-            throw new System.NotImplementedException();
-        }
 
         public override List<ShieldBuff> StatusEffects()
         {
@@ -43,6 +43,16 @@ namespace ForgottenArts.Items.Shields
             recipe.AddIngredient(ItemID.Vine, 3);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
+        }
+
+        public override void ParryMeleeSkill(Player player, NPC npc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ParryRangedSkill(Player player, Projectile proj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -59,6 +59,27 @@ namespace ForgottenArts.Items.Shields
             return true;
         }
 
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (Main.mouseX + Main.screenPosition.X > player.Center.X)
+            {
+                player.direction = 1;
+                //player.itemRotation = (float)System.Math.Atan2(Main.mouseY + Main.screenPosition.Y - player.Center.Y, Main.mouseX + Main.screenPosition.X - player.Center.X);
+            }
+            else
+            {
+                player.direction = -1;
+                //player.itemRotation = (float)System.Math.Atan2(Main.mouseY + Main.screenPosition.Y - player.Center.Y, Main.mouseX + Main.screenPosition.X - player.Center.X) + MathHelper.Pi;
+            }
+
+            /*
+            if(player.direction == -1)
+            {
+                //player.itemRotation += MathHelper.ToRadians(180f);
+            }
+            */
+        }
+
         /*
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -66,14 +87,16 @@ namespace ForgottenArts.Items.Shields
             direction.Normalize();
         }
         */
-        
+
 
         //My methods*******************************************************************************************************
 
         public abstract List<ShieldBuff> StatusEffects();
 
-        public abstract float Multipliers();
+        public abstract int Multipliers(Player player);
 
-        public abstract void ParryMeleeSkill();
+        public abstract void ParryMeleeSkill(Player player, NPC npc);
+
+        public abstract void ParryRangedSkill(Player player, Projectile proj);
     }
 }

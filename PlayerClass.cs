@@ -15,7 +15,7 @@ using static Terraria.NPC;
 
 namespace ForgottenArts
 {
-    internal class PlayerClass : ModPlayer
+    public class PlayerClass : ModPlayer
     {
         public bool inBlockStance = false;
         public bool inParryStance = false;
@@ -26,6 +26,7 @@ namespace ForgottenArts
 
         public override void ResetEffects()
         {
+            Player.moveSpeed = 1f;
             CheckIfTookDamageDuringParry();
         }
 
@@ -126,7 +127,7 @@ namespace ForgottenArts
                 direction *= 10f;
             }
             npc.velocity = direction;
-            hitNPC.Damage = (int)(npc.damage * GetHeldItem().Multipliers()) + (Player.statDefense * GetHeldItem().Multipliers());
+            hitNPC.Damage = (npc.damage + GetHeldItem().Multipliers(Player));
             hitNPC.DamageType = GetHeldItem().Item.DamageType;
             hitNPC.Knockback *= 5;//Might not be needed
             npc.StrikeNPC(hitNPC);
@@ -140,6 +141,8 @@ namespace ForgottenArts
                 }
             }
 
+            GetHeldItem().ParryMeleeSkill(Player, npc);
+
             //Player effects \/
             modifiers.DisableSound();
             modifiers.SetMaxDamage(0);
@@ -149,7 +152,6 @@ namespace ForgottenArts
 
             if (parryStreak != null)
             {
-                parryStreak.count = 600;
                 Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 600);
                 parryStreak.count++;
 
@@ -184,7 +186,7 @@ namespace ForgottenArts
             proj.owner = Player.whoAmI;
 
             proj.friendly = true;
-            proj.damage = Player.statDefense * GetHeldItem().Multipliers();
+            proj.damage = GetHeldItem().Multipliers(Player);
 
             //Player effects \/*****************************************************************************************************
             modifiers.DisableSound();
@@ -193,9 +195,10 @@ namespace ForgottenArts
             Player.ClearBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
             Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ShieldCooldown>(), 20);
 
+            GetHeldItem().ParryRangedSkill(Player, proj);
+
             if (parryStreak != null)
             {
-                parryStreak.count = 600;
                 Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 600);
                 parryStreak.count++;
 
