@@ -35,6 +35,16 @@ Items: {
 		DisplayName: Molten Leggings
 		Tooltip: ""
 	}
+
+	ReenforcedArmGuard: {
+		DisplayName: Reenforced Arm Guard
+		Tooltip: ""
+	}
+
+	WristGuard: {
+		DisplayName: Wrist Guard
+		Tooltip: ""
+	}
 }
 
 Buffs: {

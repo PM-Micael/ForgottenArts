@@ -44,7 +44,6 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
             player.setBonus = "Sets nearby enemies on fire with each succesfull Parrys";
-            player.statDefense += 5;
 
             if (playerClass.parryStreak == null)
             {

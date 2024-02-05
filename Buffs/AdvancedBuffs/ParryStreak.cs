@@ -14,7 +14,7 @@ namespace ForgottenArts.Buffs.AdvancedBuffs
         public override void Update(Player player, ref int buffIndex)
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            player.statDefense += 5;
+            
         }
 
         public void ResetStreak()

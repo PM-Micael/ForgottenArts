@@ -34,6 +34,10 @@ namespace ForgottenArts
         {
             inBlockStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.BlockStance>());
             inParryStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
+            if (!Player.HasBuff(ModContent.BuffType<ParryStreak>()))
+            {
+                parryStreak.count = 0;
+            }
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)

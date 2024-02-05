@@ -13,7 +13,7 @@ namespace ForgottenArts.Items.Shields
 
         public override void SetDefaults()
         {
-            Item.defense = 5;
+            Item.defense = 2;
 
             base.SetDefaults();
         }
