@@ -151,7 +151,7 @@ namespace ForgottenArts
             if (parryStreak != null)
             {
                 parryStreak.count = 600;
-                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreakDuration>(), 600);
+                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 600);
                 parryStreak.count++;
 
                 if (parryStreak.count >= 3)
@@ -197,7 +197,7 @@ namespace ForgottenArts
             if (parryStreak != null)
             {
                 parryStreak.count = 600;
-                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreakDuration>(), 600);
+                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 600);
                 parryStreak.count++;
 
                 if (parryStreak.count >= 3)

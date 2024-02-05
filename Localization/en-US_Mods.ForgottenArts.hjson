@@ -10,6 +10,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: Wooden Shield
 	}
+
+	PoisonIvy: {
+		DisplayName: Poison Ivy
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -36,5 +41,10 @@ Buffs: {
 	ParryStreakDuration: {
 		DisplayName: Parry Streak Duration
 		Description: Mods.ForgottenArts.Buffs.ParryStreakDuration.Description
+	}
+
+	ParryStreakDduration: {
+		DisplayName: Parry Streak Dduration
+		Description: Mods.ForgottenArts.Buffs.ParryStreakDduration.Description
 	}
 }

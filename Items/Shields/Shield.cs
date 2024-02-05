@@ -25,6 +25,11 @@ namespace ForgottenArts.Items.Shields
             Item.autoReuse = true;
         }
 
+        public override void HoldItem(Player player)
+        {
+            player.statDefense += Item.defense;
+        }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -34,7 +39,7 @@ namespace ForgottenArts.Items.Shields
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
 
-            if (player.HasBuff(ModContent.BuffType<ShieldCooldown>()))
+            if (player.HasBuff(ModContent.BuffType<ShieldCooldown>()) || player.HasBuff(ModContent.BuffType<ParryStance>()))
             {
                 return false;
             }
@@ -61,10 +66,11 @@ namespace ForgottenArts.Items.Shields
             direction.Normalize();
         }
         */
+        
 
         //My methods*******************************************************************************************************
 
-        public abstract List<ShieldBuffs> StatusEffects();
+        public abstract List<ShieldBuff> StatusEffects();
 
         public abstract float Multipliers();
 

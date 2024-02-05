@@ -9,10 +9,11 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Buffs\AdvancedBuffs\ParryStreak.png" />
-    <None Remove="Buffs\AdvancedBuffs\ParryStreakDuration.png" />
+    <None Remove="Buffs\AdvancedBuffs\ParryStreakDduration.png" />
     <None Remove="Buffs\BaseBuffs\BlockStance.png" />
     <None Remove="Buffs\BaseBuffs\ParryStance.png" />
     <None Remove="Buffs\BaseBuffs\ShieldCooldown.png" />
+    <None Remove="Items\Shields\PoisonIvy.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />

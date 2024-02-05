@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForgottenArts.Items.Shields
 {
-    internal class WoodenShield : Shield
+    public class WoodenShield : Shield
     {
         public override float Multipliers()
         {
@@ -18,7 +18,7 @@ namespace ForgottenArts.Items.Shields
             throw new NotImplementedException();
         }
 
-        public override List<ShieldBuffs> StatusEffects()
+        public override List<ShieldBuff> StatusEffects()
         {
             return null;
         }
