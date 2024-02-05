@@ -19,7 +19,6 @@ namespace ForgottenArts
     {
         public bool inBlockStance = false;
         public bool inParryStance = false;
-        //public bool parrySuccessful = false;
         private bool hasTakenDamage;
         private bool isBuffActive;
         public ParryStreak parryStreak;
@@ -207,12 +206,12 @@ namespace ForgottenArts
             }
         }
 
-        private bool IsFacingNPC(NPC npc)
+        public bool IsFacingNPC(NPC npc)
         {
             return (Player.direction == 1 && npc.Center.X > Player.Center.X) || (Player.direction == -1 && npc.Center.X < Player.Center.X);
         }
 
-        private bool IsFacingProjectile(Projectile proj)
+        public bool IsFacingProjectile(Projectile proj)
         {
             return (Player.direction == 1 && proj.Center.X > Player.Center.X) || (Player.direction == -1 && proj.Center.X < Player.Center.X);
         }
