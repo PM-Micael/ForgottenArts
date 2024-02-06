@@ -11,8 +11,10 @@
     <None Remove="Buffs\AdvancedBuffs\ParryStreak.png" />
     <None Remove="Buffs\AdvancedBuffs\ParryStreakDduration.png" />
     <None Remove="Buffs\BaseBuffs\BlockStance.png" />
+    <None Remove="Buffs\BaseBuffs\CannotTakeDamage.png" />
     <None Remove="Buffs\BaseBuffs\ParryStance.png" />
     <None Remove="Buffs\BaseBuffs\ShieldCooldown.png" />
+    <None Remove="Items\Accessories\SuspiciousLookingProsthetics.png" />
     <None Remove="Items\Projectiles\TrackingFireball.png" />
     <None Remove="Items\Shields\Handelnight.png" />
     <None Remove="Items\Shields\MoltenShield.png" />
@@ -20,5 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Other\" />
   </ItemGroup>
 </Project>

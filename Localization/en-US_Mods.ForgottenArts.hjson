@@ -50,6 +50,11 @@ Items: {
 		DisplayName: Handelnight
 		Tooltip: ""
 	}
+
+	SuspiciousLookingProsthetics: {
+		DisplayName: Suspicious Looking Prosthetics
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -81,6 +86,11 @@ Buffs: {
 	ParryStreakDduration: {
 		DisplayName: Parry Streak Dduration
 		Description: Mods.ForgottenArts.Buffs.ParryStreakDduration.Description
+	}
+
+	CannotTakeDamage: {
+		DisplayName: Cannot Take Damage
+		Description: Mods.ForgottenArts.Buffs.CannotTakeDamage.Description
 	}
 }
 

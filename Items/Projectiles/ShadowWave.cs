@@ -14,10 +14,10 @@ namespace ForgottenArts.Items.Projectiles
     {
         public override void SetDefaults()
         {
-            Projectile.width = 22;
-            Projectile.height = 22;
+            Projectile.width = 60;
+            Projectile.height = 60;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 5;
             Projectile.DamageType = ModContent.GetInstance<Heavy>();
             Projectile.tileCollide = false; // So it doesn't disappear upon hitting tiles
             Projectile.ignoreWater = true; // Ignore water

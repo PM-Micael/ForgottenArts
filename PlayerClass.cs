@@ -11,6 +11,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 using static Terraria.NPC;
 
 namespace ForgottenArts
@@ -19,16 +20,20 @@ namespace ForgottenArts
     {
         public bool inBlockStance = false;
         public bool inParryStance = false;
-        private bool hasTakenDamage;
         private bool isBuffActive;
         public ParryStreak parryStreak;
         public int playerDefense = 0;
+        public bool cannotTakeDamage = false;
+
+        public bool usedParry = false;
+        public bool parrySuccessful = false;
 
 
         public override void ResetEffects()
         {
+            usedParry = false;
+            cannotTakeDamage = false;
             Player.moveSpeed = 1f;
-            CheckIfTookDamageDuringParry();
         }
 
         public override void PostUpdate()
@@ -40,21 +45,40 @@ namespace ForgottenArts
             {
                 parryStreak.count = 0;
             }
+
+            CheckParry();
         }
 
-        public override bool FreeDodge(Player.HurtInfo info)
+        public override bool CanBeHitByProjectile(Projectile proj)
         {
-            return base.FreeDodge(info);
+            if (cannotTakeDamage || (inParryStance && IsFacingProjectile(proj)))
+            {
+                return false;
+            }
+            else if (inBlockStance && IsFacingProjectile(proj))
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+        {
+            if(cannotTakeDamage || (inParryStance && IsFacingNPC(npc)))
+            {
+                return false;
+            }
+            else if(inBlockStance && IsFacingNPC(npc))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            hasTakenDamage = true;
-            if (inParryStance && IsFacingNPC(npc))
-            {
-                PreformParryOnMelee(npc, ref modifiers);
-            }
-            else if(inBlockStance && IsFacingNPC(npc))
+            if(inBlockStance && IsFacingNPC(npc))
             {
                 modifiers.SetMaxDamage((int)Math.Round(npc.damage * 0.7));
                 modifiers.Knockback *= 0;
@@ -63,12 +87,7 @@ namespace ForgottenArts
 
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
-            hasTakenDamage = true;
-            if (inParryStance && IsFacingProjectile(proj))
-            {
-                PreformParryOnRanged(proj, ref modifiers);
-            }
-            else if (inBlockStance && IsFacingProjectile(proj))
+            if (inBlockStance && IsFacingProjectile(proj))
             {
                 modifiers.SetMaxDamage((int)Math.Round(proj.damage * 0.7));
                 modifiers.Knockback *= 0;
@@ -77,29 +96,28 @@ namespace ForgottenArts
 
         //MY methods******************************************************************************************************************
 
-        public void CheckIfTookDamageDuringParry()
+        public void CheckParry()
         {
-            // This method runs every tick, so it's a good place to check the status of the buff
-            if (Player.HasBuff(ModContent.BuffType<ParryStance>()))
+            if (inParryStance)
             {
-                if (!isBuffActive)
-                {
-                    // Buff has just been applied
-                    isBuffActive = true;
-                    hasTakenDamage = false; // Reset the damage flag since the buff is active
-                }
+                PreformParryOnMelee();
             }
-            else if (isBuffActive)
-            {
-                // Buff has just expired
-                isBuffActive = false;
-                if (!hasTakenDamage)
-                {
-                    // Player did not take damage during the buff's duration
-                    // Implement your logic here for what happens in this case
 
-                    Player.AddBuff(ModContent.BuffType<ShieldCooldown>(), 180);
-                }
+            if (parrySuccessful)
+            {
+                parrySuccessful = false;
+                usedParry = false;
+
+                Player.ClearBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
+                Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ShieldCooldown>(), 20);
+                Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.CannotTakeDamage>(), 50);
+            }
+            else if (usedParry && !inParryStance)
+            {
+                usedParry = false;
+
+                Player.ClearBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
+                Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ShieldCooldown>(), 180);
             }
         } 
 
@@ -112,101 +130,106 @@ namespace ForgottenArts
             return null;
         }
 
-        public void PreformParryOnMelee(NPC npc, ref Player.HurtModifiers modifiers)
+        public void PreformParryOnMelee() //outdated name
         {
-            SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Parry-Success")
+            foreach(NPC npc in Main.npc)
             {
-                Volume = 0.5f,
-                PitchVariance = 0.2f
-            };
-            SoundEngine.PlaySound(parrySound);
-            HitInfo hitNPC = new HitInfo();
-
-            int playerDirection = Player.direction;
-            var direction = npc.Center - Player.Center;
-            direction.Normalize();
-            npc.knockBackResist = npc.boss ? 0 : default;
-            direction *= npc.boss ? 10 : 15;//Knockback
-
-            npc.velocity = direction;
-            hitNPC.Damage = (npc.damage + GetHeldItem().Multipliers(Player));
-            hitNPC.DamageType = GetHeldItem().Item.DamageType;
-            npc.StrikeNPC(hitNPC);
-
-            var shieldDebuffs = GetHeldItem().StatusEffects();
-            if (shieldDebuffs != null)
-            {
-                foreach (var debuff in shieldDebuffs)
+                if (npc.Distance(Player.Center) < GetHeldItem().Item.width && IsFacingNPC(npc))
                 {
-                    npc.AddBuff(debuff.buffID, debuff.duration);
+                    parrySuccessful = true;
+                    SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Parry-Success")
+                    {
+                        Volume = 0.5f,
+                        PitchVariance = 0.2f
+                    };
+                    SoundEngine.PlaySound(parrySound);
+                    HitInfo hitNPC = new HitInfo();
+
+                    int playerDirection = Player.direction;
+                    var direction = npc.Center - Player.Center;
+                    direction.Normalize();
+                    npc.knockBackResist = npc.boss ? 0 : default;
+                    direction *= npc.boss ? 10 : 15;//Knockback
+
+                    npc.velocity = direction;
+                    hitNPC.Damage = (npc.damage + GetHeldItem().Multipliers(Player));
+                    hitNPC.DamageType = GetHeldItem().Item.DamageType;
+                    npc.StrikeNPC(hitNPC);
+
+                    var shieldDebuffs = GetHeldItem().StatusEffects();
+                    if (shieldDebuffs != null)
+                    {
+                        foreach (var debuff in shieldDebuffs)
+                        {
+                            npc.AddBuff(debuff.buffID, debuff.duration);
+                        }
+                    }
+
+                    GetHeldItem().ParryMeleeSkill(Player, npc);
+
+                    //Player effects \/
+
+                    if (parryStreak != null)
+                    {
+                        Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900);
+                        parryStreak.count++;
+
+                        if (parryStreak.count >= 3)
+                        {
+                            parryStreak.count = 3;
+                        }
+                    }
+
+                    parrySuccessful = true;
                 }
             }
 
-            GetHeldItem().ParryMeleeSkill(Player, npc);
-
-            //Player effects \/
-            modifiers.DisableSound();
-            modifiers.SetMaxDamage(0);
-            modifiers.Knockback *= npc.boss ? 1 : 0;
-
-            Player.ClearBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
-            Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ShieldCooldown>(), 20);
-
-            if (parryStreak != null)
+            foreach(Projectile proj in Main.projectile)
             {
-                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900);
-                parryStreak.count++;
-
-                if (parryStreak.count >= 3)
+                if (proj.Distance(Player.Center) < GetHeldItem().Item.width && IsFacingProjectile(proj))
                 {
-                    parryStreak.count = 3;
-                }
-            }
-        }
+                    parrySuccessful = true;
+                    SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Parry-Success")
+                    {
+                        Volume = 0.5f,
+                        PitchVariance = 0.2f
+                    };
+                    SoundEngine.PlaySound(parrySound);
 
-        public void PreformParryOnRanged(Projectile proj, ref Player.HurtModifiers modifiers)
-        {
-            SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Parry-Success")
-            {
-                Volume = 0.5f,
-                PitchVariance = 0.2f
-            };
-            SoundEngine.PlaySound(parrySound);
+                    int damage = proj.damage;
 
-            int damage = proj.damage;
+                    // Ensure the projectile is not already reflected to avoid infinite loops
+                    if (proj.GetGlobalProjectile<PlayerGlobalProjectile>().isReflected) return;
 
-            // Ensure the projectile is not already reflected to avoid infinite loops
-            if (proj.GetGlobalProjectile<PlayerGlobalProjectile>().isReflected) return;
+                    // Reverse projectile direction
+                    proj.velocity *= -1;
 
-            // Reverse projectile direction
-            proj.velocity *= -1;
+                    // Mark the projectile as reflected to change its behavior (see below)
+                    proj.GetGlobalProjectile<PlayerGlobalProjectile>().isReflected = true;
 
-            // Mark the projectile as reflected to change its behavior (see below)
-            proj.GetGlobalProjectile<PlayerGlobalProjectile>().isReflected = true;
+                    // Optionally, change the owner of the projectile to the player, so it can damage enemies
+                    proj.owner = Player.whoAmI;
 
-            // Optionally, change the owner of the projectile to the player, so it can damage enemies
-            proj.owner = Player.whoAmI;
+                    proj.friendly = true;
+                    proj.owner = Player.whoAmI;
+                    proj.damage = GetHeldItem().Multipliers(Player);
 
-            proj.friendly = true;
-            proj.damage = GetHeldItem().Multipliers(Player);
+                    //Player effects \/*****************************************************************************************************
 
-            //Player effects \/*****************************************************************************************************
-            modifiers.DisableSound();
-            modifiers.SetMaxDamage(0);
+                    Player.ClearBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
 
-            Player.ClearBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
-            Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ShieldCooldown>(), 20);
+                    GetHeldItem().ParryRangedSkill(Player, proj);
 
-            GetHeldItem().ParryRangedSkill(Player, proj);
+                    if (parryStreak != null)
+                    {
+                        Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900);
+                        parryStreak.count++;
 
-            if (parryStreak != null)
-            {
-                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900);
-                parryStreak.count++;
-
-                if (parryStreak.count >= 3)
-                {
-                    parryStreak.count = 3;
+                        if (parryStreak.count >= 3)
+                        {
+                            parryStreak.count = 3;
+                        }
+                    }
                 }
             }
         }

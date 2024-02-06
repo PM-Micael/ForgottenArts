@@ -61,11 +61,6 @@ namespace ForgottenArts.Buffs.BaseBuffs
                 {
                     if (playerClass.IsFacingProjectile(proj))
                     {
-                        var directionToCursor = Main.MouseWorld - player.Center;
-                        directionToCursor.Normalize();
-                        float speed = proj.velocity.Length();
-                        proj.velocity = directionToCursor * speed;
-                        proj.owner = player.whoAmI;
 
                         /*
                         var direction = proj.Center - player.Center;
@@ -78,8 +73,17 @@ namespace ForgottenArts.Buffs.BaseBuffs
                         {
                             if (playerClass.parryStreak.count == 3)
                             {
-                                playerClass.GetHeldItem().PowerUpSkill(player, proj);
+                                var directionToCursor = Main.MouseWorld - player.Center;
+                                directionToCursor.Normalize();
+                                float speed = proj.velocity.Length();
+                                proj.velocity = directionToCursor * speed;
                                 proj.friendly = true;
+                                proj.owner = player.whoAmI;
+                                playerClass.GetHeldItem().PowerUpSkill(player, proj);
+                            }
+                            else
+                            {
+                                proj.Kill();
                             }
                         }
                     }

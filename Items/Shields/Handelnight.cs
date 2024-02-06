@@ -39,7 +39,13 @@ namespace ForgottenArts.Items.Shields
         {
             PlayerClass modPlayer = player.GetModPlayer<PlayerClass>();
 
-            Projectile.NewProjectile(player.GetSource_OnHit(npc), npc.position, Vector2.Zero, ProjectileID.Grenade, Multipliers(player), 0, player.whoAmI);
+            foreach(NPC npcNew in Main.npc)
+            {
+                if(npcNew.Distance(player.Center) < 250)
+                {
+                    npcNew.AddBuff(BuffID.ShadowFlame, 300);
+                }
+            }
         }
 
         public override void ParryRangedSkill(Player player, Projectile proj)
