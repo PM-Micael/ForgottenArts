@@ -22,6 +22,7 @@ namespace ForgottenArts
         private bool hasTakenDamage;
         private bool isBuffActive;
         public ParryStreak parryStreak;
+        public int playerDefense = 0;
 
 
         public override void ResetEffects()
@@ -32,12 +33,18 @@ namespace ForgottenArts
 
         public override void PostUpdate()
         {
+            playerDefense = Player.statDefense;
             inBlockStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.BlockStance>());
             inParryStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
             if (!Player.HasBuff(ModContent.BuffType<ParryStreak>()))
             {
                 parryStreak.count = 0;
             }
+        }
+
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            return base.FreeDodge(info);
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
@@ -68,10 +75,6 @@ namespace ForgottenArts
             }
         }
 
-        public void GetMouseInputs()
-        {
-
-        }
         //MY methods******************************************************************************************************************
 
         public void CheckIfTookDamageDuringParry()
@@ -122,18 +125,12 @@ namespace ForgottenArts
             int playerDirection = Player.direction;
             var direction = npc.Center - Player.Center;
             direction.Normalize();
-            if (npc.boss) //Decides knockback
-            {
-                direction *= 10f;
-            }
-            else
-            {
-                direction *= 10f;
-            }
+            npc.knockBackResist = npc.boss ? 0 : default;
+            direction *= npc.boss ? 10 : 15;//Knockback
+
             npc.velocity = direction;
             hitNPC.Damage = (npc.damage + GetHeldItem().Multipliers(Player));
             hitNPC.DamageType = GetHeldItem().Item.DamageType;
-            hitNPC.Knockback *= 5;//Might not be needed
             npc.StrikeNPC(hitNPC);
 
             var shieldDebuffs = GetHeldItem().StatusEffects();
@@ -150,13 +147,14 @@ namespace ForgottenArts
             //Player effects \/
             modifiers.DisableSound();
             modifiers.SetMaxDamage(0);
+            modifiers.Knockback *= npc.boss ? 1 : 0;
 
             Player.ClearBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
             Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ShieldCooldown>(), 20);
 
             if (parryStreak != null)
             {
-                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 600);
+                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900);
                 parryStreak.count++;
 
                 if (parryStreak.count >= 3)
@@ -203,7 +201,7 @@ namespace ForgottenArts
 
             if (parryStreak != null)
             {
-                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 600);
+                Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900);
                 parryStreak.count++;
 
                 if (parryStreak.count >= 3)

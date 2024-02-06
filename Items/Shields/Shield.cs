@@ -9,6 +9,7 @@ namespace ForgottenArts.Items.Shields
 {
     public abstract class Shield : ModItem
     {
+
         public override void SetDefaults()
         {
             Item.damage = 0;
@@ -51,9 +52,19 @@ namespace ForgottenArts.Items.Shields
             }
             else if(Main.mouseRight && !playerClass.inBlockStance)//Parry
             {
-                Item.useAnimation = 10;
-                Item.useTime = 10;
-                player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 20);
+
+                if (playerClass.playerDefense >=40)
+                {
+                    Item.useAnimation = 35;
+                    Item.useTime = 35;
+                    player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 35);
+                }
+                else
+                {
+                    Item.useAnimation = 20;
+                    Item.useTime = 20;
+                    player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 20);
+                }
             }
 
             return true;
@@ -98,5 +109,7 @@ namespace ForgottenArts.Items.Shields
         public abstract void ParryMeleeSkill(Player player, NPC npc);
 
         public abstract void ParryRangedSkill(Player player, Projectile proj);
+
+        public abstract void PowerUpSkill<T>(Player player,T entity);
     }
 }

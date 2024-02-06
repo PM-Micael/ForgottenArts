@@ -20,8 +20,9 @@ namespace ForgottenArts.Items.Shields
 
         public override int Multipliers(Player player)
         {
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
             float multiplier = 1f;
-            int playerDefense = player.statDefense;
+            int playerDefense = playerClass.playerDefense;
             int result = (int)Math.Round(playerDefense * multiplier);
             return result;
         }
@@ -47,12 +48,17 @@ namespace ForgottenArts.Items.Shields
 
         public override void ParryMeleeSkill(Player player, NPC npc)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void ParryRangedSkill(Player player, Projectile proj)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public override void PowerUpSkill<T>(Player player, T entity)
+        {
+            
         }
     }
 }

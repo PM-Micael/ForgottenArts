@@ -14,6 +14,7 @@
     <None Remove="Buffs\BaseBuffs\ParryStance.png" />
     <None Remove="Buffs\BaseBuffs\ShieldCooldown.png" />
     <None Remove="Items\Projectiles\TrackingFireball.png" />
+    <None Remove="Items\Shields\Handelnight.png" />
     <None Remove="Items\Shields\MoltenShield.png" />
     <None Remove="Items\Shields\PoisonIvy.png" />
   </ItemGroup>

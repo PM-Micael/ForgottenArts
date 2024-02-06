@@ -45,6 +45,11 @@ Items: {
 		DisplayName: Wrist Guard
 		Tooltip: ""
 	}
+
+	Handelnight: {
+		DisplayName: Handelnight
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -79,4 +84,7 @@ Buffs: {
 	}
 }
 
-Projectiles.TrackingFireball.DisplayName: Tracking Fireball
+Projectiles: {
+	TrackingFireball.DisplayName: Tracking Fireball
+	ShadowWave.DisplayName: Shadow Wave
+}

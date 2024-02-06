@@ -1,4 +1,5 @@
 ﻿using ForgottenArts.Buffs.AdvancedBuffs;
+using System.Numerics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,10 +31,8 @@ namespace ForgottenArts.Buffs.BaseBuffs
                     {
                         if (buffs != null)
                         {
-                            player.AddBuff(BuffID.Ironskin, 120);
                             if (buffs.Count > 0)//Applies status effects
                             {
-                                player.AddBuff(BuffID.Regeneration, 120);
                                 foreach (var buff in buffs)
                                 {
                                     npc.AddBuff(buff.buffID, buff.duration);
@@ -50,7 +49,7 @@ namespace ForgottenArts.Buffs.BaseBuffs
                             direction *= knockbackStrength;
                             npc.velocity = direction;
                         }
-                        hitInfo.Damage = player.statDefense; //AddScaling
+                        hitInfo.Damage = playerClass.GetHeldItem().Multipliers(player); //AddScaling
                         npc.StrikeNPC(hitInfo);
                     }
                 }
@@ -58,19 +57,28 @@ namespace ForgottenArts.Buffs.BaseBuffs
 
             foreach(Projectile proj in Main.projectile)
             {
-                if(proj.active && !proj.friendly && proj.Distance(player.Center) < radius)
+                if (proj.active && !proj.friendly && proj.Distance(player.Center) < radius)
                 {
                     if (playerClass.IsFacingProjectile(proj))
                     {
+                        var directionToCursor = Main.MouseWorld - player.Center;
+                        directionToCursor.Normalize();
+                        float speed = proj.velocity.Length();
+                        proj.velocity = directionToCursor * speed;
+                        proj.owner = player.whoAmI;
+
+                        /*
                         var direction = proj.Center - player.Center;
                         direction.Normalize();
                         direction *= knockbackStrength;
                         proj.velocity = direction;
+                        */
 
-                        if(playerClass.parryStreak != null)
+                        if (playerClass.parryStreak != null)
                         {
                             if (playerClass.parryStreak.count == 3)
                             {
+                                playerClass.GetHeldItem().PowerUpSkill(player, proj);
                                 proj.friendly = true;
                             }
                         }

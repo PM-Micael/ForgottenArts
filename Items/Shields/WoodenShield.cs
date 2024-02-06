@@ -12,8 +12,9 @@ namespace ForgottenArts.Items.Shields
     {
         public override int Multipliers(Player player)
         {
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
             float multiplier = 0.5f;
-            int playerDefence = player.statDefense;
+            int playerDefence = playerClass.playerDefense;
             int result = (int)Math.Round(playerDefence * multiplier);
             return result;
         }
@@ -26,6 +27,11 @@ namespace ForgottenArts.Items.Shields
         public override void ParryRangedSkill(Player player, Projectile proj)
         {
 
+        }
+
+        public override void PowerUpSkill<T>(Player player, T entity)
+        {
+            
         }
 
         public override List<ShieldBuff> StatusEffects()

@@ -9,12 +9,12 @@ using Terraria.ModLoader;
 
 namespace ForgottenArts.Items.Shields
 {
-    public class MoltenShield : Shield
+    public class Handelnight : Shield
     {
 
         public override void SetDefaults()
         {
-            Item.defense = 5;
+            Item.defense = 7;
 
             base.SetDefaults();
         }
@@ -22,7 +22,7 @@ namespace ForgottenArts.Items.Shields
         public override List<ShieldBuff> StatusEffects()
         {
             List<ShieldBuff> buffs = new List<ShieldBuff>();
-            buffs.Add(new ShieldBuff(BuffID.OnFire, 600));
+            buffs.Add(new ShieldBuff(BuffID.ShadowFlame, 600));
             return buffs;
         }
 
@@ -44,18 +44,11 @@ namespace ForgottenArts.Items.Shields
 
         public override void ParryRangedSkill(Player player, Projectile proj)
         {
-            int projectileType = ModContent.ProjectileType<TrackingFireball>(); // Your custom fireball projectile
-            float projectileSpeed = 10f; // Speed of the projectile
-            int projectileDamage = 300; // Damage of the projectile
-            float projectileKnockback = 1f; // Knockback of the projectile
-
-
-            // Determine the direction to shoot the fireball (e.g., towards the cursor)
-            Vector2 direction = Main.MouseWorld - player.Center;
-            direction.Normalize();
-
-            // Spawn the projectile
-            Projectile.NewProjectile(player.GetSource_ItemUse(this.Item), player.Center, direction * projectileSpeed, projectileType, projectileDamage, projectileKnockback, player.whoAmI);
+            if (proj.type != ModContent.ProjectileType<ShadowWave>())
+            {
+                Projectile.NewProjectile(proj.GetSource_FromThis(), proj.position, proj.velocity, ModContent.ProjectileType<ShadowWave>(), proj.damage, proj.knockBack, Main.myPlayer);
+                proj.Kill();
+            }
         }
 
         public override void AddRecipes()
@@ -69,9 +62,12 @@ namespace ForgottenArts.Items.Shields
             recipe.Register();
         }
 
-        public override void PowerUpSkill<T>(Player player, T entity)
+        public override void PowerUpSkill<T>(Player player,T entity)
         {
-            
+            if(entity is Projectile)
+            {
+                ParryRangedSkill(player, entity as Projectile);
+            }
         }
     }
 }
