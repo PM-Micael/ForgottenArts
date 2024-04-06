@@ -11,6 +11,16 @@ namespace ForgottenArts.Items.Shields
 {
     public class MoltenShield : Shield
     {
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.Wood, 25);
+            recipe.AddIngredient(ItemID.Stinger, 12);
+            recipe.AddIngredient(ItemID.JungleSpores, 8);
+            recipe.AddIngredient(ItemID.Vine, 3);
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.Register();
+        }
 
         public override void SetDefaults()
         {
@@ -56,17 +66,7 @@ namespace ForgottenArts.Items.Shields
 
             // Spawn the projectile
             Projectile.NewProjectile(player.GetSource_ItemUse(this.Item), player.Center, direction * projectileSpeed, projectileType, projectileDamage, projectileKnockback, player.whoAmI);
-        }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Wood, 25);
-            recipe.AddIngredient(ItemID.Stinger, 12);
-            recipe.AddIngredient(ItemID.JungleSpores, 8);
-            recipe.AddIngredient(ItemID.Vine, 3);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
+            proj.Kill();
         }
 
         public override void BlockMeleeSkill(Player player, NPC npc)
@@ -76,7 +76,30 @@ namespace ForgottenArts.Items.Shields
 
         public override void BlockRangedSkill(Player player, Projectile proj)
         {
-            proj.Kill();
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
+
+            if (playerClass.parryStreak != null)
+            {
+                if (playerClass.parryStreak.count == 3) //Trigger powerUp
+                {
+                    var directionToCursor = Main.MouseWorld - player.Center;
+                    directionToCursor.Normalize();
+                    float speed = proj.velocity.Length();
+                    proj.velocity = directionToCursor * speed;
+                    proj.friendly = true;
+                    proj.owner = player.whoAmI;
+                    //playerClass.GetHeldItem().PowerUpSkill(player, proj);
+                    ParryRangedSkill(player, proj);
+                }
+                else
+                {
+                    proj.Kill();
+                }
+            }
+            else
+            {
+                proj.Kill();
+            }
         }
 
         public override void BlockNone(Player player)

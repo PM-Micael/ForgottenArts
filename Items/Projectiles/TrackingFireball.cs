@@ -23,18 +23,25 @@ namespace ForgottenArts.Items.Projectiles
             Projectile.ignoreWater = true; // Ignore water
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!target.buffImmune[24])
+            {
+                target.AddBuff(24, 300);
+            }
+        }
+
         public override void AI()
         {
             // Target closest NPC
             float targetMaxDistance = 1000f; // Max distance to search for enemies
             NPC target = null;
-            float targetDistance = targetMaxDistance;
             foreach (NPC npc in Main.npc)
             {
                 float distance = Vector2.Distance(npc.Center, Projectile.Center);
-                if (distance < targetDistance && npc.CanBeChasedBy())
+                if (distance < targetMaxDistance && npc.CanBeChasedBy())
                 {
-                    targetDistance = distance;
+                    targetMaxDistance = distance;
                     target = npc;
                 }
             }

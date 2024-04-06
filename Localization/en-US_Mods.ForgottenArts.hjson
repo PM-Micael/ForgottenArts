@@ -102,4 +102,5 @@ Buffs: {
 Projectiles: {
 	TrackingFireball.DisplayName: Tracking Fireball
 	ShadowWave.DisplayName: Shadow Wave
+	TrackingCursedFlame.DisplayName: Tracking Cursed Flame
 }

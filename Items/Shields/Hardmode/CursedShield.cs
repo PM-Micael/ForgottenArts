@@ -62,6 +62,16 @@ namespace ForgottenArts.Items.Shields.Hardmode
 
         public override void ParryRangedSkill(Player player, Projectile proj)
         {
+            int projectileType = ModContent.ProjectileType<TrackingCursedFlame>(); // Your custom fireball projectile
+            float projectileSpeed = 10f; // Speed of the projectile
+            int projectileDamage = 350; // Damage of the projectile
+            float projectileKnockback = 1f; // Knockback of the projectile
+
+            Vector2 direction = Main.MouseWorld - player.Center;
+            direction.Normalize();
+
+            // Spawn the projectile
+            Projectile.NewProjectile(player.GetSource_ItemUse(this.Item), player.Center, direction * projectileSpeed, projectileType, projectileDamage, projectileKnockback, player.whoAmI);
             proj.Kill();
         }
 
@@ -72,7 +82,30 @@ namespace ForgottenArts.Items.Shields.Hardmode
 
         public override void BlockRangedSkill(Player player, Projectile proj)
         {
-            proj.Kill();
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
+
+            if (playerClass.parryStreak != null)
+            {
+                if (playerClass.parryStreak.count == 3) //Trigger powerUp
+                {
+                    var directionToCursor = Main.MouseWorld - player.Center;
+                    directionToCursor.Normalize();
+                    float speed = proj.velocity.Length();
+                    proj.velocity = directionToCursor * speed;
+                    proj.friendly = true;
+                    proj.owner = player.whoAmI;
+                    //playerClass.GetHeldItem().PowerUpSkill(player, proj);
+                    ParryRangedSkill(player, proj);
+                }
+                else
+                {
+                    proj.Kill();
+                }
+            }
+            else
+            {
+                proj.Kill();
+            }
         }
 
         public override void BlockNone(Player player)

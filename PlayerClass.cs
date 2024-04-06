@@ -123,7 +123,7 @@ namespace ForgottenArts
         {
             if (inParryStance)
             {
-                PreformParryOnMelee();
+                PreformParry();
             }
 
             if (parrySuccessful)
@@ -153,7 +153,7 @@ namespace ForgottenArts
             return null;
         }
 
-        public void PreformParryOnMelee() //outdated name
+        public void PreformParry()
         {
             foreach(NPC npc in Main.npc)
             {
