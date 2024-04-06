@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ForgottenArts.Items.Accessories
+namespace ForgottenArts.Items.Accessories.PreHardMode
 {
     public class WristGuard : ModItem
     {

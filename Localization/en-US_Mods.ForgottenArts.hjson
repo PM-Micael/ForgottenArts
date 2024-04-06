@@ -55,6 +55,11 @@ Items: {
 		DisplayName: Suspicious Looking Prosthetics
 		Tooltip: ""
 	}
+
+	CursedShield: {
+		DisplayName: Cursed Shield
+		Tooltip: ""
+	}
 }
 
 Buffs: {

@@ -2,6 +2,7 @@
 using ForgottenArts.Buffs.BaseBuffs;
 using ForgottenArts.Items.Projectiles;
 using ForgottenArts.Items.Shields;
+using ForgottenArts.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +21,20 @@ namespace ForgottenArts
     {
         public bool inBlockStance = false;
         public bool inParryStance = false;
-        private bool isBuffActive;
+        public bool usedParry = false;
+        public bool parrySuccessful = false;
         public ParryStreak parryStreak;
         public int playerDefense = 0;
         public bool cannotTakeDamage = false;
+        public float damageReduction = 1f;
 
-        public bool usedParry = false;
-        public bool parrySuccessful = false;
+        public int runningDuration = 0;
+        public float Mph = 0;
 
 
         public override void ResetEffects()
         {
+            damageReduction = 1f;
             usedParry = false;
             cannotTakeDamage = false;
             Player.moveSpeed = 1f;
@@ -47,6 +51,12 @@ namespace ForgottenArts
             }
 
             CheckParry();
+
+            if (!Player.HasBuff(ModContent.BuffType<BlockStance>()))
+            {
+                runningDuration = 0;
+                Mph = 0;
+            }
         }
 
         public override bool CanBeHitByProjectile(Projectile proj)
@@ -62,8 +72,21 @@ namespace ForgottenArts
 
             return true;
         }
+
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
         {
+            for(int i =0; i<Player.armor.Length; i++)
+            {
+                if (Player.armor[i].accessory && !Player.armor[i].social && Player.armor[i].ModItem is IDodgeChance dodgeAccessory)
+                {
+                    int result = dodgeAccessory.RollForDodgeDamage();
+
+                    return result == 1;
+                }
+            }
+
+            //**************************************************************
+
             if(cannotTakeDamage || (inParryStance && IsFacingNPC(npc)))
             {
                 return false;
@@ -80,7 +103,7 @@ namespace ForgottenArts
         {
             if(inBlockStance && IsFacingNPC(npc))
             {
-                modifiers.SetMaxDamage((int)Math.Round(npc.damage * 0.7));
+                modifiers.SetMaxDamage( (int)Math.Round((npc.damage * 0.7) * damageReduction) );
                 modifiers.Knockback *= 0;
             }
         }
@@ -89,7 +112,7 @@ namespace ForgottenArts
         {
             if (inBlockStance && IsFacingProjectile(proj))
             {
-                modifiers.SetMaxDamage((int)Math.Round(proj.damage * 0.7));
+                modifiers.SetMaxDamage((int)Math.Round((proj.damage * 0.7) * damageReduction));
                 modifiers.Knockback *= 0;
             }
         }
@@ -134,8 +157,9 @@ namespace ForgottenArts
         {
             foreach(NPC npc in Main.npc)
             {
-                if (npc.Distance(Player.Center) < GetHeldItem().Item.width && IsFacingNPC(npc))
+                if (npc.Distance(Player.Center) < GetHeldItem().BlockRadius && IsFacingNPC(npc) && !npc.friendly)
                 {
+                    Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.CannotTakeDamage>(), 30);
                     parrySuccessful = true;
                     SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Parry-Success")
                     {
@@ -148,7 +172,7 @@ namespace ForgottenArts
                     int playerDirection = Player.direction;
                     var direction = npc.Center - Player.Center;
                     direction.Normalize();
-                    npc.knockBackResist = npc.boss ? 0 : default;
+                    npc.knockBackResist = 0;// npc.boss ? 0 : default;
                     direction *= npc.boss ? 10 : 15;//Knockback
 
                     npc.velocity = direction;
@@ -171,7 +195,7 @@ namespace ForgottenArts
 
                     if (parryStreak != null)
                     {
-                        Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900);
+                        Player.AddBuff(ModContent.BuffType<Buffs.AdvancedBuffs.ParryStreak>(), 900); //15 seconds duration
                         parryStreak.count++;
 
                         if (parryStreak.count >= 3)
@@ -181,12 +205,14 @@ namespace ForgottenArts
                     }
 
                     parrySuccessful = true;
+
+                    break;
                 }
             }
 
             foreach(Projectile proj in Main.projectile)
             {
-                if (proj.Distance(Player.Center) < GetHeldItem().Item.width && IsFacingProjectile(proj))
+                if (proj.Distance(Player.Center) < GetHeldItem().Item.width && IsFacingProjectile(proj) && !proj.friendly)
                 {
                     parrySuccessful = true;
                     SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Parry-Success")
@@ -230,6 +256,8 @@ namespace ForgottenArts
                             parryStreak.count = 3;
                         }
                     }
+
+                    break;
                 }
             }
         }

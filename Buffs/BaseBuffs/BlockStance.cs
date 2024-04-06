@@ -21,7 +21,9 @@ namespace ForgottenArts.Buffs.BaseBuffs
             var buffs = playerClass.GetHeldItem().StatusEffects();
 
             float knockbackStrength = 10f;
-            float radius = 40f;
+            float radius = playerClass.GetHeldItem().BlockRadius;
+
+            playerClass.GetHeldItem().BlockNone(player);
 
             foreach(NPC npc in Main.npc)
             {
@@ -61,31 +63,7 @@ namespace ForgottenArts.Buffs.BaseBuffs
                 {
                     if (playerClass.IsFacingProjectile(proj))
                     {
-
-                        /*
-                        var direction = proj.Center - player.Center;
-                        direction.Normalize();
-                        direction *= knockbackStrength;
-                        proj.velocity = direction;
-                        */
-
-                        if (playerClass.parryStreak != null)
-                        {
-                            if (playerClass.parryStreak.count == 3)
-                            {
-                                var directionToCursor = Main.MouseWorld - player.Center;
-                                directionToCursor.Normalize();
-                                float speed = proj.velocity.Length();
-                                proj.velocity = directionToCursor * speed;
-                                proj.friendly = true;
-                                proj.owner = player.whoAmI;
-                                playerClass.GetHeldItem().PowerUpSkill(player, proj);
-                            }
-                            else
-                            {
-                                proj.Kill();
-                            }
-                        }
+                        playerClass.GetHeldItem().BlockRangedSkill(player, proj);
                     }
                 }
             }

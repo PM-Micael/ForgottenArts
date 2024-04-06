@@ -9,7 +9,7 @@ namespace ForgottenArts.Items.Shields
 {
     public abstract class Shield : ModItem
     {
-
+        public float BlockRadius = 40f;
         public override void SetDefaults()
         {
             Item.damage = 0;
@@ -24,6 +24,7 @@ namespace ForgottenArts.Items.Shields
             Item.rare = 2;
             Item.UseSound = null;
             Item.autoReuse = true;
+            BlockRadius = 40f;
         }
 
         public override void HoldItem(Player player)
@@ -110,6 +111,10 @@ namespace ForgottenArts.Items.Shields
 
         public abstract void ParryRangedSkill(Player player, Projectile proj);
 
-        public abstract void PowerUpSkill<T>(Player player,T entity);
+        public abstract void BlockMeleeSkill(Player player, NPC npc);
+
+        public abstract void BlockRangedSkill(Player player, Projectile proj);
+
+        public abstract void BlockNone(Player player);
     }
 }

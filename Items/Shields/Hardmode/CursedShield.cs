@@ -7,9 +7,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ForgottenArts.Items.Shields
+namespace ForgottenArts.Items.Shields.Hardmode
 {
-    public class Handelnight : Shield
+    public class CursedShield : Shield
     {
         public override void AddRecipes()
         {
@@ -24,7 +24,8 @@ namespace ForgottenArts.Items.Shields
 
         public override void SetDefaults()
         {
-            Item.defense = 7;
+            Item.defense = 9;
+            BlockRadius = 86;
 
             base.SetDefaults();
         }
@@ -32,8 +33,9 @@ namespace ForgottenArts.Items.Shields
         public override List<ShieldBuff> StatusEffects()
         {
             List<ShieldBuff> buffs = new List<ShieldBuff>();
-            buffs.Add(new ShieldBuff(BuffID.ShadowFlame, 600));
+            buffs.Add(new ShieldBuff(BuffID.CursedInferno, 600));
             return buffs;
+            
         }
 
         public override int Multipliers(Player player)
@@ -53,56 +55,49 @@ namespace ForgottenArts.Items.Shields
             {
                 if(npcNew.Distance(player.Center) < 250)
                 {
-                    npcNew.AddBuff(BuffID.ShadowFlame, 300);
+                    npcNew.AddBuff(BuffID.CursedInferno, 300);
                 }
             }
         }
 
         public override void ParryRangedSkill(Player player, Projectile proj)
         {
-            if (proj.type != ModContent.ProjectileType<ShadowWave>())
-            {
-                Projectile.NewProjectile(proj.GetSource_FromThis(), proj.position, proj.velocity, ModContent.ProjectileType<ShadowWave>(), proj.damage, proj.knockBack, Main.myPlayer);
-                proj.Kill();
-            }
+            proj.Kill();
         }
 
         public override void BlockMeleeSkill(Player player, NPC npc)
         {
-            //None
+            
         }
 
         public override void BlockRangedSkill(Player player, Projectile proj)
         {
-            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-
-            if (playerClass.parryStreak != null)
-            {
-                if(playerClass.parryStreak.count == 3) //Trigger powerUp
-                {
-                    var directionToCursor = Main.MouseWorld - player.Center;
-                    directionToCursor.Normalize();
-                    float speed = proj.velocity.Length();
-                    proj.velocity = directionToCursor * speed;
-                    proj.friendly = true;
-                    proj.owner = player.whoAmI;
-                    //playerClass.GetHeldItem().PowerUpSkill(player, proj);
-                    ParryRangedSkill(player, proj);
-                }
-                else
-                {
-                    proj.Kill();
-                }
-            }
-            else
-            {
-                proj.Kill();
-            }
+            proj.Kill();
         }
 
         public override void BlockNone(Player player)
         {
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
+            float speedTiles = Vector2.Distance(Vector2.Zero, new Vector2(player.velocity.X, 0)) * 60 / 16;
+            float speed = speedTiles * (20.45f / 15f);
+            playerClass.Mph = speed;
+            if (player.velocity.X != 0 && playerClass.Mph >= 20f)
+            {
+                playerClass.runningDuration += 1;
 
+                if (playerClass.runningDuration >= 120)
+                {
+                    playerClass.runningDuration = 120;
+
+                    player.moveSpeed *= 3f;
+                    BlockRadius = 86f;
+                }
+            }
+            else
+            {
+                playerClass.runningDuration = 0;
+                BlockRadius = 86f;
+            }
         }
     }
 }

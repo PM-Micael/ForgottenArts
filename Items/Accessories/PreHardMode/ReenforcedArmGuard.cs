@@ -8,9 +8,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ForgottenArts.Items.Accessories
+namespace ForgottenArts.Items.Accessories.PreHardMode
 {
-    public class SuspiciousLookingProsthetics : ModItem
+    public class ReenforcedArmGuard : ModItem
     {
         public override void SetDefaults()
         {
@@ -52,8 +52,8 @@ namespace ForgottenArts.Items.Accessories
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<ReenforcedArmGuard>(), 1);
-            recipe.AddIngredient(ItemID.Bone, 10);
+            recipe.AddIngredient(ModContent.ItemType<WristGuard>(), 1);
+            recipe.AddIngredient(ItemID.HellstoneBar, 4);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }

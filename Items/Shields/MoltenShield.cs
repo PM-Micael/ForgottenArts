@@ -69,9 +69,19 @@ namespace ForgottenArts.Items.Shields
             recipe.Register();
         }
 
-        public override void PowerUpSkill<T>(Player player, T entity)
+        public override void BlockMeleeSkill(Player player, NPC npc)
         {
-            
+
+        }
+
+        public override void BlockRangedSkill(Player player, Projectile proj)
+        {
+            proj.Kill();
+        }
+
+        public override void BlockNone(Player player)
+        {
+
         }
     }
 }

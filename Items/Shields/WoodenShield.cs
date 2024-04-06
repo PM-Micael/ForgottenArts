@@ -10,6 +10,21 @@ namespace ForgottenArts.Items.Shields
 {
     public class WoodenShield : Shield
     {
+        public override void BlockMeleeSkill(Player player, NPC npc)
+        {
+
+        }
+
+        public override void BlockNone(Player player)
+        {
+
+        }
+
+        public override void BlockRangedSkill(Player player, Projectile proj)
+        {
+
+        }
+
         public override int Multipliers(Player player)
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
@@ -29,10 +44,6 @@ namespace ForgottenArts.Items.Shields
 
         }
 
-        public override void PowerUpSkill<T>(Player player, T entity)
-        {
-            
-        }
 
         public override List<ShieldBuff> StatusEffects()
         {
