@@ -64,7 +64,7 @@ namespace ForgottenArts.Items.Shields.Hardmode
         {
             int projectileType = ModContent.ProjectileType<TrackingCursedFlame>(); // Your custom fireball projectile
             float projectileSpeed = 10f; // Speed of the projectile
-            int projectileDamage = 10;// proj.type ==ProjectileID.CursedFlameHostile ? 1 : 200; // Damage of the projectile
+            int projectileDamage = 60;// proj.type ==ProjectileID.CursedFlameHostile ? 1 : 200; // Damage of the projectile
             float projectileKnockback = 1f; // Knockback of the projectile
 
             Vector2 direction = Main.MouseWorld - player.Center;

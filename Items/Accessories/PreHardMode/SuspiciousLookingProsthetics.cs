@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -57,10 +58,29 @@ namespace ForgottenArts.Items.Accessories.PreHardMode
             }
         }
 
-        public int RollForDodgeDamage()
+        public bool RollForDodgeDamage(Player player)
         {
+            if (player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.CannotTakeDamage>()))
+            {
+                return false;
+            }
+
             Random r = new Random();
-            return r.Next(1, 7);
+            int num = r.Next(1, 7);
+            
+            if(num == 1)
+            {
+                SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Parry-Success")
+                {
+                    Volume = 0.5f,
+                    PitchVariance = 0.2f
+                };
+                SoundEngine.PlaySound(parrySound);
+
+                return true;
+            }
+
+            return false;
         }
 
         public override void AddRecipes()

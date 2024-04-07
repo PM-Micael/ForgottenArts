@@ -30,6 +30,7 @@ namespace ForgottenArts
 
         public int runningDuration = 0;
         public float Mph = 0;
+        public float PlayerSpeed = 0;
 
 
         public override void ResetEffects()
@@ -42,6 +43,8 @@ namespace ForgottenArts
 
         public override void PostUpdate()
         {
+            PlayerSpeed = Math.Abs(Player.velocity.X) * 60 / 16; //Double job / fixt later but not now becasue cba
+
             playerDefense = Player.statDefense;
             inBlockStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.BlockStance>());
             inParryStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
@@ -61,6 +64,7 @@ namespace ForgottenArts
 
         public override bool CanBeHitByProjectile(Projectile proj)
         {
+
             if (cannotTakeDamage || (inParryStance && IsFacingProjectile(proj)))
             {
                 return false;
@@ -75,19 +79,10 @@ namespace ForgottenArts
 
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
         {
-            for(int i =0; i<Player.armor.Length; i++)
-            {
-                if (Player.armor[i].accessory && !Player.armor[i].social && Player.armor[i].ModItem is IDodgeChance dodgeAccessory)
-                {
-                    int result = dodgeAccessory.RollForDodgeDamage();
-
-                    return result == 1;
-                }
-            }
 
             //**************************************************************
 
-            if(cannotTakeDamage || (inParryStance && IsFacingNPC(npc)))
+            if (cannotTakeDamage || (inParryStance && IsFacingNPC(npc)))
             {
                 return false;
             }
@@ -101,19 +96,53 @@ namespace ForgottenArts
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            if(inBlockStance && IsFacingNPC(npc))
+            for(int i = 0;i <= 10;i++)
             {
-                modifiers.SetMaxDamage( (int)Math.Round((npc.damage * 0.7) * damageReduction) );
-                modifiers.Knockback *= 0;
+                if (Player.armor[i].ModItem is IDodgeChance dodge)
+                {
+                    bool result = dodge.RollForDodgeDamage(Player);
+
+                    if(result)
+                    {
+                        Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.CannotTakeDamage>(), 120);
+                        modifiers.SetMaxDamage(0);
+                        modifiers.Knockback *= 0;
+                        modifiers.DisableSound();
+                    }
+
+                    break;
+                }
+                else if (inBlockStance && IsFacingNPC(npc)) //Will rarely trigger
+                {
+                    modifiers.SetMaxDamage((int)Math.Round((npc.damage * 0.7) * damageReduction));
+                    modifiers.Knockback *= 0;
+                }
             }
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
-            if (inBlockStance && IsFacingProjectile(proj))
+            for (int i = 0; i <= 10; i++)
             {
-                modifiers.SetMaxDamage((int)Math.Round((proj.damage * 0.7) * damageReduction));
-                modifiers.Knockback *= 0;
+                if (Player.armor[i].ModItem is IDodgeChance dodge)
+                {
+                    bool result = dodge.RollForDodgeDamage(Player);
+
+                    if (result)
+                    {
+                        Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.CannotTakeDamage>(), 120);
+                        modifiers.SetMaxDamage(0);
+                        modifiers.Knockback *= 0;
+                        modifiers.DisableSound();
+                    }
+
+                    break;
+                }
+                else if (inBlockStance && IsFacingProjectile(proj))
+                {
+                    modifiers.SetMaxDamage((int)Math.Round((proj.damage * 0.7) * damageReduction));
+                    modifiers.Knockback *= 0;
+                }
             }
         }
 

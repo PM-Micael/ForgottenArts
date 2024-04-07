@@ -20,7 +20,7 @@ namespace ForgottenArts.Buffs.BaseBuffs
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
             var buffs = playerClass.GetHeldItem().StatusEffects();
 
-            float knockbackStrength = 10f;
+            float knockbackStrength = playerClass.PlayerSpeed > 0? 10f : 1f;
             float radius = playerClass.GetHeldItem().BlockRadius;
 
             playerClass.GetHeldItem().BlockNone(player);
@@ -56,7 +56,11 @@ namespace ForgottenArts.Buffs.BaseBuffs
                         {
                             hitInfo.Damage = 1;
                         }
-                        npc.StrikeNPC(hitInfo);
+
+                        if(playerClass.PlayerSpeed > 0)
+                        {
+                            npc.StrikeNPC(hitInfo);
+                        }
                     }
                 }
             }
