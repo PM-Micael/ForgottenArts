@@ -41,7 +41,7 @@ namespace ForgottenArts.Items.Shields.Hardmode
         public override int Multipliers(Player player)
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            int multiplier = 1;
+            int multiplier = 2;
             int playerDefense = playerClass.playerDefense;
             int result = playerDefense * multiplier;
             return result;
@@ -64,7 +64,7 @@ namespace ForgottenArts.Items.Shields.Hardmode
         {
             int projectileType = ModContent.ProjectileType<TrackingCursedFlame>(); // Your custom fireball projectile
             float projectileSpeed = 10f; // Speed of the projectile
-            int projectileDamage = 350; // Damage of the projectile
+            int projectileDamage = 10;// proj.type ==ProjectileID.CursedFlameHostile ? 1 : 200; // Damage of the projectile
             float projectileKnockback = 1f; // Knockback of the projectile
 
             Vector2 direction = Main.MouseWorld - player.Center;
@@ -131,6 +131,31 @@ namespace ForgottenArts.Items.Shields.Hardmode
                 playerClass.runningDuration = 0;
                 BlockRadius = 86f;
             }
+        }
+
+        public override int ArmorCheck()
+        {
+            return 55;
+        }
+
+        public override int MaxContactDamageBlock()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxContactDamageParry()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxProjectileDamageBlock()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxProjectileDamageParry()
+        {
+            throw new NotImplementedException();
         }
     }
 }

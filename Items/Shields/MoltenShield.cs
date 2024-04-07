@@ -106,5 +106,30 @@ namespace ForgottenArts.Items.Shields
         {
 
         }
+
+        public override int ArmorCheck()
+        {
+            return 33;
+        }
+
+        public override int MaxContactDamageBlock()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxContactDamageParry()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxProjectileDamageBlock()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxProjectileDamageParry()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

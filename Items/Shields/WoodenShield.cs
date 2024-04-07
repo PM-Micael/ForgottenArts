@@ -10,6 +10,11 @@ namespace ForgottenArts.Items.Shields
 {
     public class WoodenShield : Shield
     {
+        public override int ArmorCheck()
+        {
+            return 3;
+        }
+
         public override void BlockMeleeSkill(Player player, NPC npc)
         {
 
@@ -23,6 +28,26 @@ namespace ForgottenArts.Items.Shields
         public override void BlockRangedSkill(Player player, Projectile proj)
         {
 
+        }
+
+        public override int MaxContactDamageBlock()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxContactDamageParry()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxProjectileDamageBlock()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxProjectileDamageParry()
+        {
+            throw new NotImplementedException();
         }
 
         public override int Multipliers(Player player)

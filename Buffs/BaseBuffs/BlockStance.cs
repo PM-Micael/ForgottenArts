@@ -44,26 +44,37 @@ namespace ForgottenArts.Buffs.BaseBuffs
 
                         HitInfo hitInfo = new HitInfo();
 
-                        if(!npc.boss && npc.type != NPCID.EaterofWorldsHead)//Applies knockback if they are not a boss
+                        if (!npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.damage <= playerClass.playerDefense * 5)//Applies knockback if they are not a boss
                         {
                             var direction = npc.Center - player.Center;
                             direction.Normalize();
                             direction *= knockbackStrength;
                             npc.velocity = direction;
+                            hitInfo.Damage = playerClass.playerDefense; //AddScaling
                         }
-                        hitInfo.Damage = playerClass.GetHeldItem().Multipliers(player); //AddScaling
+                        else
+                        {
+                            hitInfo.Damage = 1;
+                        }
                         npc.StrikeNPC(hitInfo);
                     }
                 }
             }
 
-            foreach(Projectile proj in Main.projectile)
+            foreach(Projectile proj in Main.projectile) //Not neccesary finalized in terms of damage ased on armor level / shield type
             {
                 if (proj.active && !proj.friendly && proj.Distance(player.Center) < radius)
                 {
                     if (playerClass.IsFacingProjectile(proj))
                     {
-                        playerClass.GetHeldItem().BlockRangedSkill(player, proj);
+                        if(proj.damage <= playerClass.playerDefense * 5)
+                        {
+                            playerClass.GetHeldItem().BlockRangedSkill(player, proj);
+                        }
+                        else
+                        {
+                            proj.damage -= playerClass.playerDefense;
+                        }
                     }
                 }
             }
