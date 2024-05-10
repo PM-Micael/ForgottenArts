@@ -43,7 +43,7 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         public override void UpdateArmorSet(Player player)
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            player.setBonus = "Sets nearby enemies on fire with each succesfull Parrys";
+            player.setBonus = "Burns enemies around you \nDamage increased for each stack parry streak";
 
             if (playerClass.parryStreak == null)
             {

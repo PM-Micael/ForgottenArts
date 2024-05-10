@@ -7,18 +7,36 @@ Items: {
 	}
 
 	WoodenShield: {
-		Tooltip: ""
+		Tooltip:
+			'''
+			Left click to block 
+			Right click to parry
+			'''
 		DisplayName: Wooden Shield
 	}
 
 	PoisonIvy: {
 		DisplayName: Poison Ivy
-		Tooltip: ""
+		Tooltip:
+			'''
+			Left click to block 
+			Right click to parry
+
+			Applies poison on block and parry
+			'''
 	}
 
 	MoltenShield: {
 		DisplayName: Molten Shield
-		Tooltip: ""
+		Tooltip:
+			'''
+			Left click to block 
+			Right click to parry
+
+			Applies burning
+			Parry ranged hit to shoot a tracking fireball.
+			At 3 parry streak: blocking ranged hits shoots tracking fireball.
+			'''
 	}
 
 	MoltenChestplate: {
@@ -38,48 +56,91 @@ Items: {
 
 	ReenforcedArmGuard: {
 		DisplayName: Reenforced Arm Guard
-		Tooltip: ""
+		Tooltip:
+			'''
+			Each parry streak stack grants:
+			+ 2 defence
+			+ 1 life regen
+
+			Additionally grants a 1/6 chance to not take damage when hit (chance does not change with parry streak)
+			'''
 	}
 
 	WristGuard: {
 		DisplayName: Wrist Guard
-		Tooltip: ""
+		Tooltip:
+			'''
+			+ 5% heavy damage 
+			+ 1 life regen 
+			+ 1 defence
+			'''
 	}
 
 	Handelnight: {
 		DisplayName: Handelnight
-		Tooltip: ""
+		Tooltip:
+			'''
+			Left click to block 
+			Right click to parry
+
+			Applies Shadowflame
+			Parry ranged skill to shoot out a Shadow wave that inflicts Shadowflame.
+			At 3 parry streak: blocking ranged hits shoot out a Shadow wave.
+			'''
 	}
 
 	SuspiciousLookingProsthetics: {
 		DisplayName: Suspicious Looking Prosthetics
-		Tooltip: ""
+		Tooltip:
+			'''
+			Each Parry Streak stack grants:
+			+ 2 defence
+			+ 1 life regen
+			'''
 	}
 
 	CursedShield: {
 		DisplayName: Cursed Shield
+		Tooltip:
+			'''
+			Left click to block
+			Right click to parry
+
+			Applies Cursed flame
+			Parry  ranged skill to shoot out a Cursed fireball that inflicts Cursed flame.
+			At 3 parry streak: blocking ranged hit shoots out Cursed fireball.
+			'''
+	}
+
+	MirrorShield: {
+		DisplayName: Mirror Shield
+		Tooltip: ""
+	}
+
+	LaserSword: {
+		DisplayName: Laser Sword
 		Tooltip: ""
 	}
 }
 
 Buffs: {
 	ShieldCooldown: {
-		Description: Mods.ForgottenArts.Buffs.ShieldCooldown.Description
-		DisplayName: Shield Cooldown
+		Description: Cannot use shield
+		DisplayName: Shield on Cooldown
 	}
 
 	ParryStance: {
-		Description: Mods.ForgottenArts.Buffs.ParryStance.Description
+		Description: Parry the next hit
 		DisplayName: Parry Stance
 	}
 
 	BlockStance: {
-		Description: Mods.ForgottenArts.Buffs.BlockStance.Description
+		Description: Block damage from the front and push weaker enemies away
 		DisplayName: Block Stance
 	}
 
 	ParryStreak: {
-		Description: Mods.ForgottenArts.Buffs.ParryStreak.Description
+		Description: You are on a parry \nstreak and some equipment, armor and weapons get stronger
 		DisplayName: Parry Streak
 	}
 
@@ -89,13 +150,13 @@ Buffs: {
 	}
 
 	ParryStreakDduration: {
-		DisplayName: Parry Streak Dduration
+		DisplayName: Parry Streak duration
 		Description: Mods.ForgottenArts.Buffs.ParryStreakDduration.Description
 	}
 
 	CannotTakeDamage: {
-		DisplayName: Cannot Take Damage
-		Description: Mods.ForgottenArts.Buffs.CannotTakeDamage.Description
+		DisplayName: Immune
+		Description: Cannot take damage
 	}
 }
 
@@ -103,4 +164,7 @@ Projectiles: {
 	TrackingFireball.DisplayName: Tracking Fireball
 	ShadowWave.DisplayName: Shadow Wave
 	TrackingCursedFlame.DisplayName: Tracking Cursed Flame
+	LaserProjectile.DisplayName: Laser Projectile
 }
+
+DamageClasses.Heavy.DisplayName: Heavy

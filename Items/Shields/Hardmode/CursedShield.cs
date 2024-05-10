@@ -14,10 +14,8 @@ namespace ForgottenArts.Items.Shields.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Wood, 25);
-            recipe.AddIngredient(ItemID.Stinger, 12);
-            recipe.AddIngredient(ItemID.JungleSpores, 8);
-            recipe.AddIngredient(ItemID.Vine, 3);
+            recipe.AddIngredient(ItemID.SoulofNight, 15);
+            //recipe.AddIngredient(ModContent.ItemType<Handelnight>, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
         }
@@ -35,7 +33,6 @@ namespace ForgottenArts.Items.Shields.Hardmode
             List<ShieldBuff> buffs = new List<ShieldBuff>();
             buffs.Add(new ShieldBuff(BuffID.CursedInferno, 600));
             return buffs;
-            
         }
 
         public override int Multipliers(Player player)

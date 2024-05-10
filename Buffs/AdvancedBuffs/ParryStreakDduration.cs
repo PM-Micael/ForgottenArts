@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 
 namespace ForgottenArts.Buffs.AdvancedBuffs
-{
+{   
     public class ParryStreakDduration : ModBuff
     {
         public override void Update(Player player, ref int buffIndex)
