@@ -27,7 +27,7 @@ namespace ForgottenArts.Buffs.BaseBuffs
 
             foreach(NPC npc in Main.npc)
             {
-                if(npc.active && !npc.friendly && npc.Distance(player.Center) < radius)
+                if(npc.active && !npc.friendly && npc.Distance(player.Center) < radius && npc.type != NPCID.DD2LanePortal)
                 {
                     if (playerClass.IsFacingNPC(npc))
                     {
@@ -44,7 +44,7 @@ namespace ForgottenArts.Buffs.BaseBuffs
 
                         HitInfo hitInfo = new HitInfo();
 
-                        if (!npc.boss && npc.type != NPCID.EaterofWorldsHead && npc.damage <= playerClass.playerDefense * 5)//Applies knockback if they are not a boss
+                        if (!npc.boss && npc.type != NPCID.EaterofWorldsHead /*&& npc.damage <= playerClass.playerDefense * 5*/)//Applies knockback if they are not a boss
                         {
                             var direction = npc.Center - player.Center;
                             direction.Normalize();
@@ -71,7 +71,10 @@ namespace ForgottenArts.Buffs.BaseBuffs
                 {
                     if (playerClass.IsFacingProjectile(proj))
                     {
-                        if(proj.damage <= playerClass.playerDefense * 5)
+                        playerClass.GetHeldItem().BlockRangedSkill(player, proj);
+
+                        /*
+                        if (proj.damage <= playerClass.playerDefense * 5)
                         {
                             playerClass.GetHeldItem().BlockRangedSkill(player, proj);
                         }
@@ -79,6 +82,7 @@ namespace ForgottenArts.Buffs.BaseBuffs
                         {
                             proj.damage -= playerClass.playerDefense;
                         }
+                        */
                     }
                 }
             }

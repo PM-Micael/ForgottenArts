@@ -25,7 +25,10 @@ namespace ForgottenArts.Items.Projectiles
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.ShadowFlame, 600);
+            if(target.type != NPCID.DD2LanePortal)
+            {
+                target.AddBuff(BuffID.ShadowFlame, 600);
+            }
         }
     }
 }

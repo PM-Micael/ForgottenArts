@@ -13,11 +13,19 @@ namespace ForgottenArts.Items.Shields.Hardmode
     {
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.SoulofNight, 15);
-            //recipe.AddIngredient(ModContent.ItemType<Handelnight>, 1);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
+            Recipe recipe1 = CreateRecipe();
+            recipe1.AddIngredient(ItemID.SoulofNight, 15);
+            //recipe1.AddIngredient(ModContent.ItemType<Handelnight>, 1);
+            recipe1.AddIngredient(ItemID.TitaniumBar, 1);
+            recipe1.AddTile(TileID.MythrilAnvil);
+            recipe1.Register();
+
+            Recipe recipe2 = CreateRecipe();
+            recipe2.AddIngredient(ItemID.SoulofNight, 15);
+            //recipe2.AddIngredient(ModContent.ItemType<Handelnight>, 1);
+            recipe2.AddIngredient(ItemID.AdamantiteBar, 1);
+            recipe2.AddTile(TileID.MythrilAnvil);
+            recipe2.Register();
         }
 
         public override void SetDefaults()

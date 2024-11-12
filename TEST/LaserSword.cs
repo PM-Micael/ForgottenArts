@@ -1,5 +1,6 @@
 ﻿using ForgottenArts.Buffs.BaseBuffs;
 using ForgottenArts.Items.Projectiles;
+using Microsoft.Build.Evaluation;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -23,7 +24,7 @@ namespace ForgottenArts.TEST
             Item.rare = ItemRarityID.Purple;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
-            Item.shoot = ProjectileID.SaucerDeathray;
+            Item.shoot = ModContent.ProjectileType<MyBeam>(); ;
             Item.shootSpeed = 20f;
             
         }

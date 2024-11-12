@@ -43,11 +43,8 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Wood, 25);
-            recipe.AddIngredient(ItemID.Stinger, 12);
-            recipe.AddIngredient(ItemID.JungleSpores, 8);
-            recipe.AddIngredient(ItemID.Vine, 3);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddIngredient(ItemID.HellstoneBar, 15);
+            recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
     }

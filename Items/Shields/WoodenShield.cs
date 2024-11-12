@@ -4,12 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.Utilities.Terraria.Utilities;
 
 namespace ForgottenArts.Items.Shields
 {
     public class WoodenShield : Shield
     {
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.Wood, 25);
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.Register();
+        }
         public override int ArmorCheck()
         {
             return 3;
@@ -27,7 +35,7 @@ namespace ForgottenArts.Items.Shields
 
         public override void BlockRangedSkill(Player player, Projectile proj)
         {
-
+            proj.Kill();
         }
 
         public override int MaxContactDamageBlock()
@@ -66,7 +74,7 @@ namespace ForgottenArts.Items.Shields
 
         public override void ParryRangedSkill(Player player, Projectile proj)
         {
-
+            proj.Kill();
         }
 
 

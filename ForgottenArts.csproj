@@ -16,6 +16,7 @@
     <None Remove="Buffs\BaseBuffs\ShieldCooldown.png" />
     <None Remove="Items\Accessories\SuspiciousLookingProsthetics.png" />
     <None Remove="Items\Projectiles\LaserProjectile.png" />
+    <None Remove="Items\Projectiles\MyBeam.png" />
     <None Remove="Items\Projectiles\TrackingFireball.png" />
     <None Remove="Items\Shields\Handelnight.png" />
     <None Remove="Items\Shields\Hardmode\CursedShield.png" />

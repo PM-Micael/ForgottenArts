@@ -14,11 +14,10 @@ namespace ForgottenArts.Items.Shields
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Wood, 25);
-            recipe.AddIngredient(ItemID.Stinger, 12);
+            recipe.AddIngredient(ItemID.HellstoneBar, 15);
+            recipe.AddIngredient(ItemID.Obsidian, 15);
             recipe.AddIngredient(ItemID.JungleSpores, 8);
-            recipe.AddIngredient(ItemID.Vine, 3);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
 
@@ -49,7 +48,7 @@ namespace ForgottenArts.Items.Shields
         {
             PlayerClass modPlayer = player.GetModPlayer<PlayerClass>();
 
-            Projectile.NewProjectile(player.GetSource_OnHit(npc), npc.position, Vector2.Zero, ProjectileID.Grenade, Multipliers(player), 0, player.whoAmI);
+            //Projectile.NewProjectile(player.GetSource_OnHit(npc), npc.position, Vector2.Zero, ProjectileID.Grenade, Multipliers(player), 0, player.whoAmI);
         }
 
         public override void ParryRangedSkill(Player player, Projectile proj)

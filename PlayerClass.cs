@@ -32,13 +32,29 @@ namespace ForgottenArts
         public float Mph = 0;
         public float PlayerSpeed = 0;
 
+        // Stamina \/ ************************************************************************
 
+        public float CurrentStamina { get; private set; }
+        public float MaxStamina { get; private set; }
+
+        private const float ATTACK_STAMINA_COST = 50f;
+
+
+        // Stamina /\ ************************************************************************
         public override void ResetEffects()
         {
             damageReduction = 1f;
             usedParry = false;
             cannotTakeDamage = false;
             Player.moveSpeed = 1f;
+            // Stamina \/
+
+            MaxStamina = 100f;
+
+            if (CurrentStamina > MaxStamina)
+            {
+                CurrentStamina = MaxStamina;
+            }       
         }
 
         public override void PostUpdate()
@@ -48,10 +64,12 @@ namespace ForgottenArts
             playerDefense = Player.statDefense;
             inBlockStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.BlockStance>());
             inParryStance = Player.HasBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>());
-            if (!Player.HasBuff(ModContent.BuffType<ParryStreak>()))
+            
+            if (!Player.HasBuff(ModContent.BuffType<ParryStreak>()) && parryStreak != null)
             {
                 parryStreak.count = 0;
             }
+            
 
             CheckParry();
 
@@ -184,7 +202,7 @@ namespace ForgottenArts
 
         public void PreformParry()
         {
-            foreach(NPC npc in Main.npc)
+            foreach (NPC npc in Main.npc)
             {
                 if (npc.Distance(Player.Center) < GetHeldItem().BlockRadius && IsFacingNPC(npc) && !npc.friendly)
                 {

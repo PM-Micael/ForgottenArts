@@ -74,14 +74,14 @@ namespace ForgottenArts.Items.Accessories.PreHardMode
         {
             Recipe recipe1 = CreateRecipe();
             recipe1.AddIngredient(ModContent.ItemType<ReenforcedArmGuard>(), 1);
-            recipe1.AddIngredient(ItemID.BrainOfConfusion, 10);
+            recipe1.AddIngredient(ItemID.BrainOfConfusion, 1);
             recipe1.AddIngredient(ItemID.Bone, 10);
             recipe1.AddTile(TileID.Anvils);
             recipe1.Register();
 
             Recipe recipe2 = CreateRecipe();
             recipe2.AddIngredient(ModContent.ItemType<ReenforcedArmGuard>(), 1);
-            recipe2.AddIngredient(ItemID.WormScarf, 10);
+            recipe2.AddIngredient(ItemID.WormScarf, 1);
             recipe2.AddIngredient(ItemID.Bone, 10);
             recipe2.AddTile(TileID.Anvils);
             recipe2.Register();

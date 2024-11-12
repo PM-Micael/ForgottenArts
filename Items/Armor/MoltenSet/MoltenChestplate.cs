@@ -66,7 +66,7 @@ namespace ForgottenArts.Items.Armor.MoltenSet
 
                 foreach (NPC npc in Main.npc)
                 {
-                    if (npc.active && !npc.friendly && npc.Distance(player.Center) < radius)
+                    if (npc.active && !npc.friendly && npc.Distance(player.Center) < radius && npc.type != NPCID.DD2LanePortal)
                     {
                         HitInfo hitInfo = new HitInfo();
                         hitInfo.Knockback = 0;
@@ -109,13 +109,9 @@ namespace ForgottenArts.Items.Armor.MoltenSet
 
         public override void AddRecipes()
         {
-            
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Wood, 25);
-            recipe.AddIngredient(ItemID.Stinger, 12);
-            recipe.AddIngredient(ItemID.JungleSpores, 8);
-            recipe.AddIngredient(ItemID.Vine, 3);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddIngredient(ItemID.HellstoneBar, 20);
+            recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
     }

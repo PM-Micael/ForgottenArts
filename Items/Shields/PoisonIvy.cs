@@ -53,7 +53,7 @@ namespace ForgottenArts.Items.Shields
 
         public override void ParryRangedSkill(Player player, Projectile proj)
         {
-            
+            proj.Kill();
         }
 
         public override void BlockMeleeSkill(Player player, NPC npc)

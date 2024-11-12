@@ -165,6 +165,7 @@ Projectiles: {
 	ShadowWave.DisplayName: Shadow Wave
 	TrackingCursedFlame.DisplayName: Tracking Cursed Flame
 	LaserProjectile.DisplayName: Laser Projectile
+	MyBeam.DisplayName: My Beam
 }
 
 DamageClasses.Heavy.DisplayName: Heavy
