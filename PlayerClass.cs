@@ -31,34 +31,45 @@ namespace ForgottenArts
         public int runningDuration = 0;
         public float Mph = 0;
         public float PlayerSpeed = 0;
+        public float statDefense;
 
-        // Stamina \/ ************************************************************************
+        // Endurence \/ ************************************************************************
 
-        public float CurrentStamina { get; private set; }
-        public float MaxStamina { get; private set; }
+        public int EndurenceMax;
+        public float EndurenceCurrent = 0f;
+        public float EndurenceRegenRate;
+        public float BlockMultiplier = 0.5f;
 
-        private const float ATTACK_STAMINA_COST = 50f;
-
-
-        // Stamina /\ ************************************************************************
+        public float EndurenceToRemove = 0f;
+        public float LastDamageBlocked = 0f;
+        // Endurence /\ ************************************************************************
         public override void ResetEffects()
         {
             damageReduction = 1f;
             usedParry = false;
             cannotTakeDamage = false;
             Player.moveSpeed = 1f;
-            // Stamina \/
+            // Endurence \/
+            BlockMultiplier = 0.5f;
 
-            MaxStamina = 100f;
-
-            if (CurrentStamina > MaxStamina)
-            {
-                CurrentStamina = MaxStamina;
-            }       
+            EndurenceMax = Player.statLifeMax;
+            EndurenceRegenRate = 1f;
         }
 
         public override void PostUpdate()
         {
+            RemoveEndurence();
+
+            //Regen 
+            if(EndurenceCurrent < EndurenceMax)
+               EndurenceCurrent += EndurenceRegenRate;
+
+            if (EndurenceCurrent > EndurenceMax)
+                EndurenceCurrent = EndurenceMax;
+
+            statDefense = Player.statDefense;
+            // Endurance /\
+
             PlayerSpeed = Math.Abs(Player.velocity.X) * 60 / 16; //Double job / fixt later but not now becasue cba
 
             playerDefense = Player.statDefense;
@@ -165,6 +176,21 @@ namespace ForgottenArts
         }
 
         //MY methods******************************************************************************************************************
+
+        public void RemoveEndurence()
+        {
+
+            EndurenceToRemove = LastDamageBlocked - (statDefense * BlockMultiplier);
+
+            if(EndurenceToRemove >= 0)
+                EndurenceCurrent -= EndurenceToRemove;
+
+            EndurenceToRemove = 0f;
+            LastDamageBlocked = 0f;
+
+            if (EndurenceCurrent < 0)
+                EndurenceCurrent = 0;
+        }
 
         public void CheckParry()
         {

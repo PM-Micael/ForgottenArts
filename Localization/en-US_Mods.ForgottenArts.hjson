@@ -121,6 +121,11 @@ Items: {
 		DisplayName: Laser Sword
 		Tooltip: ""
 	}
+
+	LivingSymbioteChestplate: {
+		DisplayName: Living Symbiote Chestplate
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -166,6 +171,7 @@ Projectiles: {
 	TrackingCursedFlame.DisplayName: Tracking Cursed Flame
 	LaserProjectile.DisplayName: Laser Projectile
 	MyBeam.DisplayName: My Beam
+	LaserBeam.DisplayName: Laser Beam
 }
 
 DamageClasses.Heavy.DisplayName: Heavy

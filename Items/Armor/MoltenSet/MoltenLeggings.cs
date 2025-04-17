@@ -38,6 +38,8 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         public override void UpdateEquip(Player player)
         {
             player.statDefense += 9;
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
+            playerClass.EndurenceMax += 150;
         }
 
         public override void AddRecipes()

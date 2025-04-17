@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.NPC;
 
-namespace ForgottenArts.Items.Projectiles
+namespace ForgottenArts.Items.Projectiles.MirrorShield
 {
     public class MyBeam : ModProjectile
     {

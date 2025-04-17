@@ -1,4 +1,5 @@
 ﻿using ForgottenArts.Buffs.AdvancedBuffs;
+using ForgottenArts.Other;
 using System.Numerics;
 using Terraria;
 using Terraria.ID;
@@ -61,11 +62,19 @@ namespace ForgottenArts.Buffs.BaseBuffs
                         {
                             npc.StrikeNPC(hitInfo);
                         }
+
+                        //playerClass.EndurenceToRemove += npc.damage - (playerClass.statDefense * playerClass.BlockMultiplier);
+                        playerClass.LastDamageBlocked = npc.damage;
                     }
                 }
             }
 
-            foreach(Projectile proj in Main.projectile) //Not neccesary finalized in terms of damage ased on armor level / shield type
+            BlockProjectile(player, playerClass, radius);
+        }
+
+        public void BlockProjectile(Player player, PlayerClass playerClass, float radius)
+        {
+            foreach (Projectile proj in Main.projectile) //Not neccesary finalized in terms of damage ased on armor level / shield type
             {
                 if (proj.active && !proj.friendly && proj.Distance(player.Center) < radius)
                 {
@@ -84,6 +93,8 @@ namespace ForgottenArts.Buffs.BaseBuffs
                         }
                         */
                     }
+
+                    //playerClass.EndurenceCurrent -= (proj.damage - (player.statDefense * 15));
                 }
             }
         }

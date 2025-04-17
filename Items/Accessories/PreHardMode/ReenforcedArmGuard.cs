@@ -31,22 +31,13 @@ namespace ForgottenArts.Items.Accessories.PreHardMode
             }
             else
             {
-                switch (playerClass.parryStreak.count)
-                {
-                    case 1:
-                        player.statDefense += 2;
-                        player.lifeRegen += 1;
-                        break;
-                    case 2:
-                        player.statDefense += 4;
-                        player.lifeRegen += 2;
-                        break;
-                    case 3:
-                        player.statDefense += 6;
-                        player.lifeRegen += 3;
-                        break;
-                }
+                ParryStreakBonus(player, playerClass);
             }
+        }
+        private void ParryStreakBonus(Player player, PlayerClass playerClass)
+        {
+            player.statDefense += (playerClass.parryStreak.count * 2);
+            player.lifeRegen += (playerClass.parryStreak.count * 1);
         }
 
         public override void AddRecipes()

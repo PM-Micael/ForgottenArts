@@ -1,5 +1,6 @@
 ﻿using ForgottenArts.Buffs.BaseBuffs;
 using ForgottenArts.Items.Projectiles;
+using ForgottenArts.Items.Projectiles.MirrorShield;
 using Microsoft.Build.Evaluation;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
