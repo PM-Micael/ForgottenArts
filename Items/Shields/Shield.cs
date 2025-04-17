@@ -49,31 +49,32 @@ namespace ForgottenArts.Items.Shields
 
             if(playerClass.playerDefense >= ArmorCheck()) //Armor check
             {
-                if (player.HasBuff(ModContent.BuffType<ShieldCooldown>()) || player.HasBuff(ModContent.BuffType<ParryStance>()))
-                {
-                    return false;
-                }
-                else if (Main.mouseLeft && !playerClass.inParryStance) //Block
-                {
-                    Item.useAnimation = 1;
-                    Item.useTime = 1;
-                    player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.BlockStance>(), 1);
-                }
-                else if (Main.mouseRight && !playerClass.inBlockStance)//Parry
-                {
 
-                    if (playerClass.playerDefense >= 40)
-                    {
-                        Item.useAnimation = 35;
-                        Item.useTime = 35;
-                        player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 35);
-                    }
-                    else
-                    {
-                        Item.useAnimation = 20;
-                        Item.useTime = 20;
-                        player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 20);
-                    }
+            }
+            if (player.HasBuff(ModContent.BuffType<ShieldCooldown>()) || player.HasBuff(ModContent.BuffType<ParryStance>()))
+            {
+                return false;
+            }
+            else if (Main.mouseLeft && !playerClass.inParryStance) //Block
+            {
+                Item.useAnimation = 1;
+                Item.useTime = 1;
+                player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.BlockStance>(), 1);
+            }
+            else if (Main.mouseRight && !playerClass.inBlockStance)//Parry
+            {
+
+                if (playerClass.playerDefense >= 40) // More defence = higher parry window
+                {
+                    Item.useAnimation = 35;
+                    Item.useTime = 35;
+                    player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 35);
+                }
+                else
+                {
+                    Item.useAnimation = 20;
+                    Item.useTime = 20;
+                    player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ParryStance>(), 20);
                 }
             }
             else

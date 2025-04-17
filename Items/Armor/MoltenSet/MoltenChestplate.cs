@@ -33,6 +33,8 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         public override void UpdateEquip(Player player)
         {
             player.statDefense += 10;
+            PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
+            playerClass.EndurenceMax += 300;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -43,7 +45,10 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         public override void UpdateArmorSet(Player player)
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            player.setBonus = "Burns enemies around you \nDamage increased for each stack parry streak";
+            playerClass.EndurenceRegenRate += 1;
+            player.setBonus = " X 2 Enduraence Regeneration" +
+                "Burns enemies around you. " +
+                "Damage increased for each stack parry streak";
 
             if (playerClass.parryStreak == null)
             {
@@ -77,12 +82,15 @@ namespace ForgottenArts.Items.Armor.MoltenSet
                                 break;
                             case 1:
                                 damage = 10;
+                                CombatText.NewText(npc.Hitbox, Color.Yellow, damage);
                                 break;
                             case 2:
                                 damage = 20;
+                                CombatText.NewText(npc.Hitbox, Color.Orange, damage);
                                 break;
                             case 3:
                                 damage = 40;
+                                CombatText.NewText(npc.Hitbox, Color.Red, damage);
                                 break;
 
                         }
@@ -98,7 +106,6 @@ namespace ForgottenArts.Items.Armor.MoltenSet
                         }
                         else if (damage > 0)
                         {
-                            CombatText.NewText(npc.Hitbox, Color.Yellow, damage);
                             npc.HitEffect();
                         }
                     }

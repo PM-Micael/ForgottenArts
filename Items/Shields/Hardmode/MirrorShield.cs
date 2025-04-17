@@ -81,7 +81,7 @@ namespace ForgottenArts.Items.Shields.Hardmode
                 Item.shoot = 0;
             }
         }
-
+ 
         public override void BlockRangedSkill(Player player, Projectile proj)
         {
             throw new NotImplementedException();

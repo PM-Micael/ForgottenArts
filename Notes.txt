@@ -1,0 +1,7 @@
+1. Buff			| Calculates Damage | Set last damage blocked
+2. UpdateArmorSet	| Sets numbers      | 
+3. PostUpdate	
+
+
+
+Error Between Post Update Start and End
