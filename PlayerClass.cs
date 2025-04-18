@@ -36,7 +36,7 @@ namespace ForgottenArts
         // Endurence \/ ************************************************************************
 
         public int EndurenceMax;
-        public float EndurenceCurrent = 0f;
+        public float EndurenceCurrent = 1f;
         public float EndurenceRegenRate;
         public float BlockMultiplier = 0.5f;
 
@@ -182,14 +182,23 @@ namespace ForgottenArts
 
             EndurenceToRemove = LastDamageBlocked - (statDefense * BlockMultiplier);
 
-            if(EndurenceToRemove >= 0)
+            if(EndurenceToRemove >= 0) // So it doesn't trigger on negative numbers
                 EndurenceCurrent -= EndurenceToRemove;
 
             EndurenceToRemove = 0f;
             LastDamageBlocked = 0f;
 
-            if (EndurenceCurrent < 0)
+            if (EndurenceCurrent <= 0) // Do I want it ShieldCoodown to last for the duration Endurance is not full?
+            {
                 EndurenceCurrent = 0;
+                SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Shield-Break")
+                {
+                    Volume = 0.5f,
+                    PitchVariance = 0.2f
+                };
+                SoundEngine.PlaySound(parrySound);
+                Player.AddBuff(ModContent.BuffType<Buffs.BaseBuffs.ShieldCooldown>(), 240);
+            }
         }
 
         public void CheckParry()

@@ -1,5 +1,11 @@
 ﻿Pre Eye of Chtulu
-- 
+- Armor
+- Shield
+ - Poison ivy
+
+Pre Brain of Cthulu / Eater of Worlds
+- Shield
+ - Poison Ivy
 
 Pre Wall Of Flesh
  - Accessories

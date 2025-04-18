@@ -10,7 +10,7 @@ namespace ForgottenArts.Items.Shields
     public abstract class Shield : ModItem
     {
         public float BlockRadius = 40f;
-        public abstract int ArmorCheck();
+        public abstract int ArmorCheck(); //OutDated?
         public abstract int MaxContactDamageBlock();
         public abstract int MaxContactDamageParry();
         public abstract int MaxProjectileDamageBlock();
@@ -50,6 +50,10 @@ namespace ForgottenArts.Items.Shields
             if(playerClass.playerDefense >= ArmorCheck()) //Armor check
             {
 
+            }
+            if(playerClass.EndurenceCurrent <= 0)
+            {
+                return false;
             }
             if (player.HasBuff(ModContent.BuffType<ShieldCooldown>()) || player.HasBuff(ModContent.BuffType<ParryStance>()))
             {

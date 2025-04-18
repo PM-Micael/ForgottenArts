@@ -48,8 +48,8 @@ namespace ForgottenArts.UI
 
             // Draw text
             Utils.DrawBorderString(spriteBatch, endurence, endurencePosition, textColor);
-            Utils.DrawBorderString(spriteBatch, testStackString, testStacksPosition, Color.Yellow);
-            Utils.DrawBorderString(spriteBatch, endurenceRegenText, endurenceRegenVector, Color.Pink);
+            //Utils.DrawBorderString(spriteBatch, testStackString, testStacksPosition, Color.Yellow);
+            //Utils.DrawBorderString(spriteBatch, endurenceRegenText, endurenceRegenVector, Color.Pink);
         }
     }
 }

@@ -2,6 +2,7 @@
 using ForgottenArts.Other;
 using System.Numerics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.NPC;
@@ -65,6 +66,13 @@ namespace ForgottenArts.Buffs.BaseBuffs
 
                         //playerClass.EndurenceToRemove += npc.damage - (playerClass.statDefense * playerClass.BlockMultiplier);
                         playerClass.LastDamageBlocked = npc.damage;
+
+                        SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Block-Success")
+                        {
+                            Volume = 0.5f,
+                            PitchVariance = 0.2f
+                        };
+                        SoundEngine.PlaySound(parrySound);
                     }
                 }
             }
@@ -92,6 +100,14 @@ namespace ForgottenArts.Buffs.BaseBuffs
                             proj.damage -= playerClass.playerDefense;
                         }
                         */
+
+
+                        SoundStyle parrySound = new SoundStyle("ForgottenArts/Sounds/Block-Success")
+                        {
+                            Volume = 0.5f,
+                            PitchVariance = 0.2f
+                        };
+                        SoundEngine.PlaySound(parrySound);
                     }
 
                     //playerClass.EndurenceCurrent -= (proj.damage - (player.statDefense * 15));
