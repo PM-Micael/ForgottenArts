@@ -42,6 +42,9 @@ namespace ForgottenArts
 
         public float EndurenceToRemove = 0f;
         public float LastDamageBlocked = 0f;
+
+        //Armor Set
+        public float AdaptiveDefenceStacks = 0f;
         // Endurence /\ ************************************************************************
         public override void ResetEffects()
         {
@@ -58,6 +61,11 @@ namespace ForgottenArts
 
         public override void PostUpdate()
         {
+            if (AdaptiveDefenceStacks > 3)
+                AdaptiveDefenceStacks = 3;
+
+            BlockMultiplier += AdaptiveDefenceStacks;
+
             RemoveEndurence();
 
             //Regen 

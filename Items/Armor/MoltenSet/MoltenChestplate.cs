@@ -34,7 +34,7 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         {
             player.statDefense += 10;
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            playerClass.EndurenceMax += 300;
+            playerClass.EndurenceMax += 200;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -45,6 +45,7 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         public override void UpdateArmorSet(Player player)
         {
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
+            playerClass.EndurenceMax += 200;
             playerClass.EndurenceRegenRate += 1;
             player.setBonus = " X 2 Enduraence Regeneration" +
                 "Burns enemies around you. " +

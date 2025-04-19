@@ -8,11 +8,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ForgottenArts.Buffs;
 
-namespace ForgottenArts.Items.Armor.MoltenSet
+namespace ForgottenArts.Items.Armor.HardMode.CursedSet
 {
-    [AutoloadEquip(EquipType.Legs)]
+    [AutoloadEquip(EquipType.Head)]
 
-    public class MoltenLeggings : ModItem
+    public class CursedHelm : ModItem
     {
         public override void SetDefaults()
         {
@@ -30,22 +30,17 @@ namespace ForgottenArts.Items.Armor.MoltenSet
             Item.autoReuse = false;
         }
 
-
-        public override bool IsArmorSet(Item head, Item body, Item legs)
-        {
-            return base.IsArmorSet(head, body, legs);
-        }
         public override void UpdateEquip(Player player)
         {
-            player.statDefense += 9;
+            player.statDefense += 17;
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            playerClass.EndurenceMax += 100;
+            playerClass.EndurenceMax += 200;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.HellstoneBar, 15);
+            recipe.AddIngredient(ItemID.HellstoneBar, 10);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }

@@ -126,6 +126,43 @@ Items: {
 		DisplayName: Living Symbiote Chestplate
 		Tooltip: ""
 	}
+
+	CursedBar: {
+		DisplayName: Cursed Bar
+		Tooltip: ""
+	}
+
+	PossessedArmorScrap: {
+		DisplayName: Possessed Armor Scrap
+		Tooltip: ""
+	}
+
+	CursedChestplate: {
+		DisplayName: Cursed Chestplate
+		Tooltip:
+			'''
+			19 Defence
+			300 Endurance
+			'''
+	}
+
+	CursedHelm: {
+		DisplayName: Cursed Helm
+		Tooltip:
+			'''
+			17 Defence
+			200 Endurance
+			'''
+	}
+
+	CursedLeggings: {
+		DisplayName: Cursed Leggings
+		Tooltip:
+			'''
+			15 Defence
+			200 Endurance
+			'''
+	}
 }
 
 Buffs: {

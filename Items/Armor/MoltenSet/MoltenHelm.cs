@@ -34,7 +34,7 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         {
             player.statDefense += 9;
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            playerClass.EndurenceMax += 150;
+            playerClass.EndurenceMax += 100;
         }
 
         public override void AddRecipes()

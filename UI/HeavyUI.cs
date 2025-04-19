@@ -24,7 +24,10 @@ namespace ForgottenArts.UI
             Vector2 testStacksPosition = new Vector2(20, 140);
             string testStackString = $"Block Multiplier: {playerClass.BlockMultiplier}";
 
-            Vector2 endurenceRegenVector = new Vector2(20, 160);
+            Vector2 adaptiveDefenceStackPosition = new Vector2(20, 160);
+            string adaptiveDefenceStackString = $"Block Multiplier: {playerClass.BlockMultiplier}";
+
+            Vector2 endurenceRegenVector = new Vector2(20, 180);
             string endurenceRegenText = $"Endurence Regeneration: {playerClass.EndurenceRegenRate}";
 
             Color textColor = Color.Red;
@@ -48,7 +51,8 @@ namespace ForgottenArts.UI
 
             // Draw text
             Utils.DrawBorderString(spriteBatch, endurence, endurencePosition, textColor);
-            //Utils.DrawBorderString(spriteBatch, testStackString, testStacksPosition, Color.Yellow);
+            Utils.DrawBorderString(spriteBatch, testStackString, testStacksPosition, Color.Yellow);
+            Utils.DrawBorderString(spriteBatch, adaptiveDefenceStackString, adaptiveDefenceStackPosition, Color.Yellow);
             //Utils.DrawBorderString(spriteBatch, endurenceRegenText, endurenceRegenVector, Color.Pink);
         }
     }

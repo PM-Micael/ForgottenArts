@@ -17,8 +17,16 @@
     <None Remove="Builds.txt" />
     <None Remove="Concepts.txt" />
     <None Remove="Items\Accessories\SuspiciousLookingProsthetics.png" />
+    <None Remove="Items\Armor\HardMode\CursedSet\CursedChestplate.png" />
+    <None Remove="Items\Armor\HardMode\CursedSet\CursedChestplate_Body.png" />
+    <None Remove="Items\Armor\HardMode\CursedSet\CursedHelm.png" />
+    <None Remove="Items\Armor\HardMode\CursedSet\CursedHelm_Head.png" />
+    <None Remove="Items\Armor\HardMode\CursedSet\CursedLeggings.png" />
+    <None Remove="Items\Armor\HardMode\CursedSet\CursedLeggings_Legs.png" />
     <None Remove="Items\Armor\PreHardMode\LivingSymbioteSet\LivingSymbioteChestplate.png" />
     <None Remove="Items\Armor\PreHardMode\LivingSymbioteSet\LivingSymbioteChestplate_Body.png" />
+    <None Remove="Items\Materials\CursedBar.png" />
+    <None Remove="Items\Materials\PossessedArmorScrap.png" />
     <None Remove="Items\Projectiles\LaserProjectile.png" />
     <None Remove="Items\Projectiles\TrackingFireball.png" />
     <None Remove="Items\Shields\Handelnight.png" />
@@ -26,6 +34,7 @@
     <None Remove="Items\Shields\Hardmode\MirrorShield.png" />
     <None Remove="Items\Shields\MoltenShield.png" />
     <None Remove="Items\Shields\PoisonIvy.png" />
+    <None Remove="Notes\Pipeline.txt" />
     <None Remove="TEST\LaserSword.png" />
   </ItemGroup>
   <ItemGroup>

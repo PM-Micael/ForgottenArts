@@ -8,11 +8,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ForgottenArts.Buffs;
 
-namespace ForgottenArts.Items.Armor.MoltenSet
+namespace ForgottenArts.Items.Armor.HardMode.CursedSet
 {
     [AutoloadEquip(EquipType.Legs)]
 
-    public class MoltenLeggings : ModItem
+    public class CursedLeggings : ModItem
     {
         public override void SetDefaults()
         {
@@ -37,9 +37,9 @@ namespace ForgottenArts.Items.Armor.MoltenSet
         }
         public override void UpdateEquip(Player player)
         {
-            player.statDefense += 9;
+            player.statDefense += 15;
             PlayerClass playerClass = player.GetModPlayer<PlayerClass>();
-            playerClass.EndurenceMax += 100;
+            playerClass.EndurenceMax += 200;
         }
 
         public override void AddRecipes()
